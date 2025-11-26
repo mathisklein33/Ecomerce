@@ -29,14 +29,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_role     = $_SESSION['role_id']; // normalement 2 (admin)
 
     // Gestion de l'image fichier
-    $imagePath = null;
+    $imageName = null;
 
     if (!empty($_FILES['image']['name'])) {
-        $imageName = time() . "_" . basename($_FILES['image']['name']);
-        $target = "../public/asset/img/" . $imageName;
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-            $imagePath = "../public/asset/img/" . $imageName;
+        $uploadDir = "../public/asset/img/";
+        $imageName = time() . "_" . basename($_FILES['image']['name']); // nom du fichier
+        $target    = $uploadDir . $imageName;
+
+        // Déplacer l'image dans le dossier /img/
+        if (!move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+            echo "<p style='color:red;'>Erreur lors de l'upload de l'image.</p>";
+            exit();
         }
     }
 
@@ -52,15 +56,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ");
 
     $stmt->bind_param(
-        "ssisssii",
-        $nom,
-        $description,
-        $prix,
-        $stock,
-        $imagePath,
-        $date,
-        $id_user,
-        $id_role
+            "ssisssii",
+            $nom,
+            $description,
+            $prix,
+            $stock,
+            $imageName,  // <-- on stocke UNIQUEMENT "monimage.jpg"
+            $date,
+            $id_user,
+            $id_role
     );
 
     if ($stmt->execute()) {

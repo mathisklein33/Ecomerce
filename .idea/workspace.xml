@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdf05353-c606-4418-85fd-e8845674b6dc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/page/admin-produit.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/admin-produit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page/produit-creation.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/produit-creation.php" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +17,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="PHP File" />
+
       </list>
     </option>
   </component>
@@ -37,14 +35,7 @@
     &quot;assignee&quot;: &quot;mathisklein33&quot;
   }
 }</component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="develop" />
-        <option value="main" />
-      </list>
-    </option>
-  </component>
+
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/mathisklein33/Ecomerce.git&quot;,
@@ -54,30 +45,12 @@
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="360YhGyBJzvHJz9TUnNqxWd38d6" />
+
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;admin-produit&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\MKL\PhpstormProjects\Ecomerce\public" />
-      <recent name="C:\Users\MKL\PhpstormProjects\Ecomerce" />
-      <recent name="C:\Users\MKL\PhpstormProjects\Ecomerce\page" />
+
     </key>
   </component>
   <component name="SharedIndexes">
@@ -90,12 +63,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cdf05353-c606-4418-85fd-e8845674b6dc" name="Changes" comment="" />
-      <created>1764145073963</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1764145073963</updated>
-      <workItem from="1764145075083" duration="11252000" />
+
     </task>
     <servers />
   </component>

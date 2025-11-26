@@ -43,9 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Date actuelle
     $date = date('Y-m-d');
 
-    /* ---------------------------------------------
-       Insertion dans la base de donnée
-    --------------------------------------------- */
+
+       //Insertion dans la base de donnée
+
     $stmt = $conn->prepare("
         INSERT INTO produit (nom, description, prix, stock, image, date, user_iduser, user_role_idrole)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)

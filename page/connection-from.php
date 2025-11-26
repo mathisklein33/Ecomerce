@@ -42,18 +42,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>connection</title>
-    <link rel="stylesheet" href="../public/asset/CSS/style.css">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="../public/asset/css/login.css">
 </head>
-<body>
-<form method="POST">
-    <label>Email :</label>
-    <input type="email" name="email" required>
+<body class="login-body">
 
-    <label>Mot de passe :</label>
-    <input type="password" name="password" required>
+<div class="login-container">
 
-    <button type="submit">Se connecter</button>
-</form>
+    <h2 class="login-title">Se connecter</h2>
+
+    <form method="POST" class="login-form">
+
+        <label class="label">Email :</label>
+        <input type="email" name="email" class="input-field" required>
+
+        <label class="label">Mot de passe :</label>
+        <input type="password" name="password" class="input-field" required>
+
+        <button type="submit" class="btn-login">Se connecter</button>
+    </form>
+
+</div>
+
 </body>
 </html>

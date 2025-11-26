@@ -33,22 +33,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ");
 
         $stmt->bind_param("sssssi",
-            $firstname,
-            $surname,
-            $adresse,
-            $email,
-            $hashed_password,
-            $role
+                $firstname,
+                $surname,
+                $adresse,
+                $email,
+                $hashed_password,
+                $role
         );
 
         if ($stmt->execute()) {
 
-            echo "Compte créé avec succès !";
-
             // Auto-login
             $_SESSION['user_id'] = $stmt->insert_id;
             $_SESSION['email']   = $email;
-            $_SESSION['role']    = 1;  // On stocke aussi le rôle en session 👍
+            $_SESSION['role']    = 1;
 
             header("Location: index.php");
             exit;
@@ -64,30 +62,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="utf-8">
     <title>Créer un compte</title>
-    <link rel="stylesheet" href="../public/asset/CSS/style.css">
+    <link rel="stylesheet" href="../public/asset/css/register.css">
 </head>
-<body>
+<body class="register-body">
 
-<h2>Créer un compte</h2>
+<div class="register-container">
+    <h2 class="register-title">Créer un compte</h2>
 
-<form method="POST">
-    <label>Prénom :</label>
-    <input type="text" name="firstname" required>
+    <form method="POST" class="register-form">
 
-    <label>Nom :</label>
-    <input type="text" name="surname" required>
+        <label class="register-label">Prénom :</label>
+        <input type="text" name="firstname" class="register-input" required>
 
-    <label>Adresse :</label>
-    <input type="text" name="adresse" required>
+        <label class="register-label">Nom :</label>
+        <input type="text" name="surname" class="register-input" required>
 
-    <label>Email :</label>
-    <input type="email" name="email" required>
+        <label class="register-label">Adresse :</label>
+        <input type="text" name="adresse" class="register-input" required>
 
-    <label>Mot de passe :</label>
-    <input type="password" name="password" required>
+        <label class="register-label">Email :</label>
+        <input type="email" name="email" class="register-input" required>
 
-    <button type="submit">S'inscrire</button>
-</form>
+        <label class="register-label">Mot de passe :</label>
+        <input type="password" name="password" class="register-input" required>
+
+        <button type="submit" class="register-button">S'inscrire</button>
+    </form>
+</div>
 
 </body>
 </html>

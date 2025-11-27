@@ -1,6 +1,6 @@
 ﻿<?php
 session_start();
-require 'public/config/config.php';
+require '../public/config/config.php';
 
 /* ---------------------------------------------
      Vérification connexion + rôle admin

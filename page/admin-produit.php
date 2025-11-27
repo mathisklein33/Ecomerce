@@ -1,6 +1,6 @@
 ﻿<?php
-include 'public/includes/header.php';
-require 'public/config/config.php';
+include '../public/includes/header.php';
+require '../public/config/config.php';
 
 // Vérifier connexion
 if (!$conn) {
@@ -26,7 +26,6 @@ if (!$result) {
     die('Erreur SQL : ' . mysqli_error($conn));
 }
 
-// suppresion produit
 
 if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['idproduit'])) {
     $id = (int) $_GET['idproduit'];
@@ -89,10 +88,13 @@ if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['id
                             <strong>prix :</strong> <?= htmlspecialchars($row['prix']) ?> <strong>€</strong>
                         </p>
 
-                        <a href="?action=supprimer&idproduit=<?= $row['idproduit'] ?>"
-                           onclick="return confirm('Supprimer ce produit ?');">
-
+                        <a href="delete.php?idproduit=<?= $row['idproduit'] ?>"
+                           onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');">
                             <button type="button">Supprimer</button>
+                        </a>
+
+                        <a href="modifier.php?idproduit=<?= $row['idproduit'] ?>">
+                            <button type="button">Modifier</button>
                         </a>
                     </div>
 
@@ -102,4 +104,4 @@ if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['id
         </div>
     </section>
 
-<?php include 'public/includes/footer.php'; ?>
+<?php include '../public/includes/footer.php'; ?>

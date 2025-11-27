@@ -25,6 +25,35 @@ $result = mysqli_query($conn, $sql); // récupére base de donnée
 if (!$result) {
     die('Erreur SQL : ' . mysqli_error($conn));
 }
+
+// suppresion produit
+
+if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['idproduit'])) {
+    $id = (int) $_GET['idproduit'];
+
+    // Préparation + exécution (sécurisé)
+    $stmt = mysqli_prepare($conn, "DELETE FROM produit WHERE idproduit = ?");
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_execute($stmt);
+
+        // Vérifier réussite
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            // succès
+            mysqli_stmt_close($stmt);
+            // Rediriger pour éviter double suppression au refresh
+            header("Location: " . strtok($_SERVER["REQUEST_URI"], '?')); // retour sur la même page sans query
+            exit;
+        } else {
+            // aucun enregistrement supprimé — id inexistant ou erreur
+            mysqli_stmt_close($stmt);
+            // Pour debug (retirer en production)
+            error_log("Suppression échouée pour idproduit={$id}");
+        }
+    } else {
+        error_log("Erreur prepare: " . mysqli_error($conn));
+    }
+}
 ?>
 
     <section>
@@ -53,26 +82,18 @@ if (!$result) {
                         <p><?= htmlspecialchars($row['description']) ?></p>
 
                         <p>
-                            <strong>Stock :</strong> <?= htmlspecialchars($row['stock']) ?><br>
+                            <strong>Stock :</strong> <?= htmlspecialchars($row['stock']) ?> <br>
                         </p>
 
                         <p>
-                            <strong>prix :</strong> <?= htmlspecialchars($row['prix']) ?>
+                            <strong>prix :</strong> <?= htmlspecialchars($row['prix']) ?> <strong>€</strong>
                         </p>
 
-                        <button>supprimer</button>
-                        <?php
-                        // Action de SUPPRESSION de la fiche
-                        if($_GET['action'] == "supprimer")
-                        {
-                            // Suppression de la Fiche N°xxx
-                            $id = ($_GET['idproduit']); // Récuération du numéro de ligne à supprimer
-                            $db->query("DELETE FROM $db_table WHERE id='$id'"); // Suppression
+                        <a href="?action=supprimer&idproduit=<?= $row['idproduit'] ?>"
+                           onclick="return confirm('Supprimer ce produit ?');">
 
-                            // redirection après suppression
-                            header("location:index.php?nav=".$nav."&msg=2");
-                        }
-                        ?>
+                            <button type="button">Supprimer</button>
+                        </a>
                     </div>
 
                 <?php endwhile; //boucle fin?>

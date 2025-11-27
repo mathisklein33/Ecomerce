@@ -17,7 +17,7 @@
        <nav class="container py-4">
                 <ul class="nav justify-content-center gap-5">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Accueil</a>
+                        <a class="nav-link" href="index.php">Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Catalogue</a>

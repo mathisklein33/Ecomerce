@@ -1,6 +1,6 @@
 ﻿<?php
 session_start();
-require '../public/config/config.php';
+require 'public/config/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="utf-8">
     <title>Connexion</title>
-    <link rel="stylesheet" href="../public/asset/css/login.css">
+    <link rel="stylesheet" href="public/asset/CSS/login.css">
 </head>
 <body class="login-body">
 

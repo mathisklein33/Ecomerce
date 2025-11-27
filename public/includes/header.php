@@ -5,7 +5,7 @@
     <title>Titre de la page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="./public/asset/CSS/style.css">
-    <script src="./public/asset/js/js.js"></script>
+    <script src="./public/asset/js/scrypt.js"></script>
 </head>
 <body>
 <header>

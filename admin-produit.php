@@ -1,6 +1,6 @@
 ﻿<?php
-include '../public/include/header.php';
-require '../public/config/config.php';
+include 'public/includes/header.php';
+require 'public/config/config.php';
 
 // Vérifier connexion
 if (!$conn) {
@@ -32,6 +32,7 @@ if (!$result) {
             <label for="site-search">Search the site:</label>
             <input type="search" name="q" />
             <button>Search</button>
+            <a href="produit-creation.php">crée produit</a>
         </div>
     </section>
 
@@ -40,7 +41,9 @@ if (!$result) {
             <h1>Liste des produits</h1>
 
             <div>
-                <?php while($row = mysqli_fetch_assoc($result)) : // boucle crée carde automatique?>
+                    <?php
+                    while($row = mysqli_fetch_assoc($result)) : // boucle crée carde automatique
+                    ?>
 
                     <div>
                         <h5><?= htmlspecialchars($row['nom']) ?></h5>
@@ -56,6 +59,20 @@ if (!$result) {
                         <p>
                             <strong>prix :</strong> <?= htmlspecialchars($row['prix']) ?>
                         </p>
+
+                        <button>supprimer</button>
+                        <?php
+                        // Action de SUPPRESSION de la fiche
+                        if($_GET['action'] == "supprimer")
+                        {
+                            // Suppression de la Fiche N°xxx
+                            $id = ($_GET['idproduit']); // Récuération du numéro de ligne à supprimer
+                            $db->query("DELETE FROM $db_table WHERE id='$id'"); // Suppression
+
+                            // redirection après suppression
+                            header("location:index.php?nav=".$nav."&msg=2");
+                        }
+                        ?>
                     </div>
 
                 <?php endwhile; //boucle fin?>
@@ -64,4 +81,4 @@ if (!$result) {
         </div>
     </section>
 
-<?php include '../public/include/footer.php'; ?>
+<?php include 'public/includes/footer.php'; ?>

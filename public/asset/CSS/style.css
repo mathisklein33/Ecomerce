@@ -68,3 +68,50 @@ footer{
     border-radius: 8px;
 }
 
+/* panier */
+body {
+    background-color: #fafafa;
+}
+
+
+.cart-item {
+    background: white;
+    border-radius: 15px;
+}
+
+.item-img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+.quantity-box button {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+}
+
+.item-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+
+.trash-icon {
+    font-size: 20px;
+    color: #dc3545;
+    cursor: pointer;
+}
+
+.trash-icon:hover {
+    color: #a30000;
+}
+
+
+.order-box {
+    background: white;
+    border-radius: 18px;
+

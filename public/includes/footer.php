@@ -1,49 +1,45 @@
-﻿<footer class="container py-5" style="font-size:40px;">
-    <div class="d-flex justify-content-xl-between">
+﻿<footer class="container py-5">
 
+    <div class="row gy-5 text-center text-md-start">
 
-        <div class="d-flex flex-column align-items-center">
-            <h2>Services</h2>
-            <nav>
-                <ul class="list-unstyled">
-                    <li><a href="#">Service 1</a></li>
-                    <li><a href="#">Service 2</a></li>
-                    <li><a href="#">Service 3</a></li>
-                </ul>
-            </nav>
+        <!-- Services -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <h2 class="h4 mb-3">Services</h2>
+            <ul class="list-unstyled footer-links">
+                <li><a href="#">Service 1</a></li>
+                <li><a href="#">Service 2</a></li>
+                <li><a href="#">Service 3</a></li>
+            </ul>
         </div>
 
-
-        <div class="d-flex flex-column align-items-center">
-            <h2>FAQ</h2>
-            <nav>
-                <ul class="list-unstyled">
-                    <li><a href="#">question 1</a></li>
-                    <li><a href="#">question 2</a></li>
-                    <li><a href="#">question 3</a></li>
-                </ul>
-            </nav>
+        <!-- FAQ -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <h2 class="h4 mb-3">FAQ</h2>
+            <ul class="list-unstyled footer-links">
+                <li><a href="#">Question 1</a></li>
+                <li><a href="#">Question 2</a></li>
+                <li><a href="#">Question 3</a></li>
+            </ul>
         </div>
 
-
-        <div class="d-flex flex-column align-items-center">
-            <h2>Informations</h2>
-            <nav>
-                <ul class="list-unstyled">
-                    <li><a href="#">Info 1</a></li>
-                    <li><a href="#">Info 2</a></li>
-                    <li><a href="#">Info 3</a></li>
-                </ul>
-            </nav>
+        <!-- Informations -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <h2 class="h4 mb-3">Informations</h2>
+            <ul class="list-unstyled footer-links">
+                <li><a href="#">Info 1</a></li>
+                <li><a href="#">Info 2</a></li>
+                <li><a href="#">Info 3</a></li>
+            </ul>
         </div>
 
-
-        <div class="text-center">
-            <h2>Restons ensemble</h2>
+        <!-- Réseaux sociaux -->
+        <div class="col-12 col-md-6 col-lg-3 text-center">
+            <h2 class="h4 mb-3">Restons ensemble</h2>
             <nav>
-                <ul class="list-unstyled d-flex justify-content-center gap-3 mt-3">
+                <ul class="list-unstyled d-flex justify-content-center gap-4 mt-3">
+
                     <li>
-                        <a href="#">
+                        <a href="#" class="social-icon">
                             <!-- LinkedIn -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
                                  class="bi bi-linkedin" viewBox="0 0 16 16">
@@ -52,8 +48,9 @@
                             </svg>
                         </a>
                     </li>
+
                     <li>
-                        <a href="#">
+                        <a href="#" class="social-icon">
                             <!-- Facebook -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
                                  class="bi bi-facebook" viewBox="0 0 16 16">
@@ -62,8 +59,9 @@
                             </svg>
                         </a>
                     </li>
+
                     <li>
-                        <a href="#">
+                        <a href="#" class="social-icon">
                             <!-- X -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
                                  class="bi bi-twitter-x" viewBox="0 0 16 16">
@@ -72,12 +70,13 @@
                             </svg>
                         </a>
                     </li>
+
                 </ul>
             </nav>
         </div>
 
-    </div>
 </footer>
+
 
 <script src="./public/asset/js/js.js"></script>
 </body>

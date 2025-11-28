@@ -1,5 +1,5 @@
 ﻿<?php
-include '../public/includes/header.php';
+
 require '../public/config/config.php';
 
 // Vérifier connexion
@@ -97,4 +97,3 @@ if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['id
         </div>
     </section>
 
-<?php include '../public/includes/footer.php'; ?>

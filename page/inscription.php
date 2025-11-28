@@ -1,59 +1,48 @@
 ﻿<?php
 session_start();
-require '../public/config/config.php';
+require 'public/config/config.php';
+
+$errorMessage = "";
+
+
+if (isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit;
+}
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $firstname = $_POST['firstname'];
-    $surname   = $_POST['surname'];
-    $adresse   = $_POST['adresse'];
-    $email     = $_POST['email'];
-    $password  = $_POST['password'];
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
 
-    // Vérifier si l'email existe déjà
-    $check = $conn->prepare("SELECT email FROM user WHERE email = ?");
-    $check->bind_param("s", $email);
-    $check->execute();
-    $res = $check->get_result();
+    // Sélection de l'utilisateur via son email
+    $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($res->num_rows > 0) {
-        echo "Cet email est déjà utilisé.";
-    } else {
+    if ($result->num_rows === 1) {
 
-        // Hash du mot de passe
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $user = $result->fetch_assoc();
 
-        // Rôle forcé : 1 = utilisateur simple
-        $role = 1;
+        // Vérification du mot de passe hashé
+        if (password_verify($password, $user['password'])) {
 
-        // Insert
-        $stmt = $conn->prepare("
-            INSERT INTO user (firstname, surname, adresse, email, password, role_idrole) 
-            VALUES (?, ?, ?, ?, ?, ?)
-        ");
-
-        $stmt->bind_param("sssssi",
-                $firstname,
-                $surname,
-                $adresse,
-                $email,
-                $hashed_password,
-                $role
-        );
-
-        if ($stmt->execute()) {
-
-            // Auto-login
-            $_SESSION['user_id'] = $stmt->insert_id;
-            $_SESSION['email']   = $email;
-            $_SESSION['role']    = 1;
+            $_SESSION['user_id'] = $user['iduser'];
+            $_SESSION['email']   = $user['email'];
+            $_SESSION['role']    = $user['role_idrole'];
 
             header("Location: index.php");
             exit;
 
         } else {
-            echo "Erreur pendant l'inscription.";
+            $errorMessage = "Mot de passe incorrect.";
         }
+
+    } else {
+        $errorMessage = "Cet email n'existe pas.";
     }
 }
 ?>

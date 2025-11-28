@@ -42,3 +42,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+
+    const input = document.getElementById('search');
+    const cards = document.querySelectorAll('.card');
+
+    input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+
+    cards.forEach(card => {
+    const name = (card.dataset.name || '').toLowerCase();
+    const description = (card.dataset.description || '').toLowerCase();
+
+    // si q est vide -> montrer toutes les cards
+    const visible = q === '' || name.includes(q) || description.includes(q);
+    card.style.display = visible ? '' : 'none';
+});
+});

@@ -18,6 +18,10 @@ footer h2 {
     margin-bottom: 1rem;
 }
 
+.nonetext {
+    text-decoration: none;
+}
+
 .footer-links li {
     margin: 8px 0;
 }

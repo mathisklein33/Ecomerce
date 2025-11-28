@@ -1,0 +1,322 @@
+
+.site-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Base des boutons */
+.btn {
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.hero-content .btn-dark, .hero-content .btn-secondary {
+    background: #ffffff;
+    color: #0ea5e9; /* Utilisation du bleu/cyan comme couleur principale */
+    border: 2px solid #0ea5e9;
+    padding: 12px 28px;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hero-content .btn-dark:hover, .hero-content .btn-secondary:hover {
+    background: #0ea5e9;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ========================================= */
+/* 3. STRUCTURE ET ESPACEMENT DES SECTIONS */
+/* ========================================= */
+
+/* Application uniforme du border-radius et de l'overflow */
+.hero-section-intro,
+.hero-section-details,
+.features-section-container,
+section.bg-primary,
+.cta-section {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* SECTION HÉRO 1 (Titre/CTA) */
+.hero-section-intro {
+    padding: 60px 40px !important;
+    margin-top: 40px;
+    margin-bottom: 50px; /* Espace après */
+}
+
+/* SECTION HÉRO 2 (Image/Description) */
+.hero-section-details {
+    background-color: #ffffff; /* Fond blanc pour séparer le contenu visuellement */
+    border: 1px solid #e0e7ee;
+    padding: 40px 60px;
+    margin-bottom: 80px; /* Espace après pour les Features */
+}
+
+/* SECTION CARACTÉRISTIQUES (Features) */
+.features-section-container {
+    padding-top: 40px;
+    padding-bottom: 60px;
+    margin-bottom: 50px;
+    /* Styles pour la disposition interne */
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* SECTION PRODUITS PHARES */
+section.bg-primary {
+    padding-top: 100px !important;
+    padding-bottom: 60px !important;
+    margin-bottom: 50px;
+}
+
+/* SECTION CTA FINALE */
+.cta-section {
+    margin-top: 50px;
+    padding: 80px 0;
+    text-align: center; /* Centrage du contenu */
+}
+
+.cta-content {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* ========================================= */
+/* 4. STYLES TYPOGRAPHIQUES ET CONTENUS SPÉCIFIQUES */
+/* ========================================= */
+
+/* Styles HERO 1 */
+.hero-content {
+    max-width: 50%;
+    padding-right: 40px;
+}
+
+.hero-content h1 {
+    font-size: 3.2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.hero-content .text-lead {
+    font-size: 1.1rem;
+    color: #cbd5e0; /* Texte clair sur fond foncé */
+    margin-bottom: 30px;
+}
+
+.tag-line {
+    padding: 6px 16px;
+    background-color: #e0f2fe;
+    color: #0891b2;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 999px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+/* Styles HERO 2 */
+.hero-section-details img {
+    object-fit: cover;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.hero-section-details p.small {
+    color: #4a5568 !important; /* Texte sombre sur fond clair */
+}
+
+
+/* Styles Cartes de Caractéristiques */
+.feature-card {
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e7ee;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 2.2rem;
+    color: #0ea5e9;
+    margin-bottom: 15px;
+}
+
+.feature-card h4 {
+    color: #1a202c;
+}
+
+.feature-card .text-muted {
+    color: #718096 !important;
+}
+
+
+/* Styles Section Produits Phares */
+section.bg-primary {
+    background-color: #f7f9fc !important;
+}
+
+section.bg-primary h2 {
+    color: #1a202c !important;
+    font-size: 2.4rem;
+    margin-bottom: 8px;
+}
+
+section.bg-primary .text-white-50 {
+    color: #718096 !important;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+/* Styles Cartes Produits */
+.product-img-container {
+    height: 190px;
+    overflow: hidden;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+.product-img-container .card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease-in-out;
+    border-radius: 0;
+}
+
+.product-card-custom {
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+}
+
+.product-card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15) !important;
+}
+
+.product-card-custom:hover .card-img-top {
+    transform: scale(1.05); /* Zoom subtil sur l'image au survol */
+    transition: 1.5s;
+}
+
+.card-body .badge {
+    background-color: #f59e0b !important;
+    color: #1a202c !important;
+    padding: 0.5em 0.8em;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.card-body .text-primary {
+    color: #0ea5e9 !important;
+}
+
+.card-body .btn-primary {
+    background-color: #1a202c !important;
+    border-color: #1a202c !important;
+    font-weight: 600;
+}
+
+.card-body .btn-primary:hover {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+    transform: none;
+}
+
+/* Bouton "Voir Tous les Produits" */
+.btn-warning {
+    background-color: #f59e0b !important;
+    border-color: #f59e0b !important;
+    color: #1a202c !important;
+    padding: 12px 30px;
+    border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);
+}
+
+.btn-warning:hover {
+    background-color: #d97706 !important;
+    border-color: #d97706 !important;
+    color: #ffffff !important;
+}
+
+/* Styles Section CTA */
+.cta-section {
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+    color: #ffffff;
+}
+
+.tag-line-cta {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.cta-content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.2;
+}
+
+.btn-cta {
+    background-color: #ffffff;
+    color: #6366f1;
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 999px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cta:hover {
+    background-color: #f3f4f6;
+    color: #4f46e5;
+    transform: translateY(-2px);
+}
+
+
+/* FOOTER */
+footer {
+    padding: 20px 0;
+    background-color: #1a202c;
+    color: #ffffff;
+    text-align: center;
+}
+
+footer .text-muted {
+    color: #a0aec0 !important;
+    font-size: 0.85rem;
+}
+
+.hero-btn {
+    /* Ce sélecteur ne semble pas être utilisé dans le HTML fourni, mais je le laisse pour la forme */
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}

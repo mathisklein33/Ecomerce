@@ -20,13 +20,13 @@ if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 2) {
 --------------------------------------------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nom         = $_POST['nom'];
+    $nom= $_POST['nom'];
     $description = $_POST['description'];
-    $prix        = $_POST['prix'];
-    $stock       = $_POST['stock'];
+    $prix= $_POST['prix'];
+    $stock= $_POST['stock'];
 
-    $id_user     = $_SESSION['user_id'];
-    $id_role     = $_SESSION['role_id']; // normalement 2 (admin)
+    $id_user= $_SESSION['user_id'];
+    $id_role= $_SESSION['role_id']; // normalement 2 (admin)
 
     // Gestion de l'image fichier
     $imageName = null;

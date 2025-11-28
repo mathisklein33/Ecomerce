@@ -15,7 +15,9 @@ $routes = [
         'produit/modifier' => __DIR__ . '/page/modifier.php',
         'produit/supprimer' => __DIR__ . '/page/delete.php',
         'user' => __DIR__ . '/page/user.php',
-];
+    'panier' => __DIR__ . '/page/panier.php',
+
+    ];
 
 $page = $_GET['page'] ?? 'base';
 

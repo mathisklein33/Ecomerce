@@ -72,26 +72,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="style-produit.css">
 
-<h2>Créer un produit</h2>
+<div class="page-container">
 
-<form action="" method="POST" enctype="multipart/form-data">
+    <div class="product-card shadow">
+        <h2 class="text-center mb-4">Créer un produit</h2>
 
-    <label>Nom du produit :</label><br>
-    <input type="text" name="nom" required><br><br>
+        <form action="" method="POST" enctype="multipart/form-data">
 
-    <label>Description :</label><br>
-    <textarea name="description" required></textarea><br><br>
+            <div class="mb-3">
+                <label class="form-label">Nom du produit</label>
+                <input type="text" name="nom" class="form-control" required>
+            </div>
 
-    <label>Prix (€) :</label><br>
-    <input type="number" name="prix" step="0.01" required><br><br>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description" class="form-control" rows="3" required></textarea>
+            </div>
 
-    <label>Stock :</label><br>
-    <input type="number" name="stock" required><br><br>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Prix (€)</label>
+                    <input type="number" name="prix" step="0.01" class="form-control" required>
+                </div>
 
-    <label>Image :</label><br>
-    <input type="file" name="image" accept="image/*"><br><br>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Stock</label>
+                    <input type="number" name="stock" class="form-control" required>
+                </div>
+            </div>
 
-    <button type="submit">Créer le produit</button>
+            <div class="mb-3">
+                <label class="form-label">Image</label>
+                <input type="file" name="image" accept="image/*" class="form-control">
+            </div>
 
-</form>
+            <button type="submit" class="btn-submit w-100 mt-3">Créer le produit</button>
+
+        </form>
+    </div>
+
+</div>

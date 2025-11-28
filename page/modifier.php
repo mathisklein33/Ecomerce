@@ -44,12 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Modifier produit</title>
-</head>
-<body>
 
 <h2>Modifier le produit : <?= htmlspecialchars($produit['nom']) ?></h2>
 
@@ -69,6 +63,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <button type="submit">Enregistrer</button>
 </form>
-
-</body>
-</html>

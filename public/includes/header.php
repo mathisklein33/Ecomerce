@@ -23,7 +23,7 @@
                         <a class="nav-link" href="#">Catalogue</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="http://localhost/savouinos/?page=login">Connection</a>
                     </li>
                 </ul>
             </nav>
@@ -40,4 +40,5 @@
     </div>
     </div>
     </div>
+
 </header>

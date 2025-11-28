@@ -72,13 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Créer un produit</title>
-</head>
-<body>
 
 <h2>Créer un produit</h2>
 
@@ -102,6 +95,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit">Créer le produit</button>
 
 </form>
-
-</body>
-</html>

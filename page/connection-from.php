@@ -38,14 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <title>Connexion</title>
-    <link rel="stylesheet" href="../public/asset/CSS/login.css">
-</head>
-<body class="login-body">
+<div class="login-body">
 
 <div class="login-container">
 
@@ -63,6 +56,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 
 </div>
-
-</body>
-</html>
+</div>

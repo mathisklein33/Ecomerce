@@ -57,14 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <title>Créer un compte</title>
-    <link rel="stylesheet" href="../public/asset/css/register.css">
-</head>
-<body class="register-body">
+
+<div class="register-body">
 
 <div class="register-container">
     <h2 class="register-title">Créer un compte</h2>
@@ -90,5 +84,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </div>
 
-</body>
-</html>
+</div>
+

@@ -1,5 +1,4 @@
 <?php
-include '../public/includes/header.php';
 include  '../public/config/config.php';
 ?>
 
@@ -28,7 +27,4 @@ include  '../public/config/config.php';
     </div>
 </section>
 
-<?php
-include '../public/includes/footer.php';
-?>
 

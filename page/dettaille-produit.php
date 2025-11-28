@@ -1,5 +1,4 @@
 <?php
-require '../public/includes/header.php';
 require '../public/config/config.php';
 
 $row = '';
@@ -43,7 +42,3 @@ $produit = mysqli_fetch_assoc($result);
 </section>
 
 
-
-<?php
-require '../public/includes/footer.php';
-?>

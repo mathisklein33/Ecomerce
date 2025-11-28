@@ -2,6 +2,11 @@
 session_start();
 require 'public/config/config.php';
 
+if (isset($_SESSION['user_id'])) {
+    header("Location: http://localhost/savouinos/?page=user");
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $email = $_POST['email'];
@@ -53,6 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" name="password" class="input-field" required>
 
         <button type="submit" class="btn-login">Se connecter</button>
+        <div class="mt-4">
+        <p class="signup-text">
+            Pas encore de compte ?
+            <a class="p-2 nonetext" href="http://localhost/savouinos/?page=inscription" >Inscription</a>
+        </p>
+        </div>
     </form>
 
 </div>

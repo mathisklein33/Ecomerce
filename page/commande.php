@@ -1,7 +1,5 @@
 <?php
 session_start();
-include_once "../public/config/config.php";
-
 // Vérification panier non vide
 if (empty($_SESSION['panier'])) {
     die("Panier vide.");
@@ -10,18 +8,22 @@ if (empty($_SESSION['panier'])) {
 // Récupération du panier
 $panier = $_SESSION['panier'];
 
+// Données client par défaut
 $client_data = [
-    "firstname" => "",
-    "surname" => "",
-    "email" => "",
-    "adresse" => ""
+        "firstname" => "",
+        "surname" => "",
+        "email" => "",
+        "adresse" => ""
 ];
 
+// Si utilisateur connecté → récupérer info DB
 if (isset($_SESSION['user_id'])) {
-    $stmt = $pdo->prepare("SELECT `iduser`, `surname`, `firstname`, `email`, `password`, `role_idrole`, `adresse` FROM `user` WHERE 1");
+
+    $stmt = $pdo->prepare("SELECT iduser, surname, firstname, email, adresse FROM user WHERE iduser = ?");
     $stmt->execute([$_SESSION['user_id']]);
     $client_data = $stmt->fetch(PDO::FETCH_ASSOC) ?: $client_data;
 }
+
 
 if(isset($_POST) && !empty($_POST)){
 
@@ -40,8 +42,11 @@ if(isset($_POST) && !empty($_POST)){
     $user_id = $_SESSION['user_id'] ?? NULL;
     $role_id = $_SESSION['user_role'] ?? 2; // client
 
-    $stmt = $pdo->prepare("INSERT INTO `commande`(`idcommande`, `codepromo_idcodepromo`, `quantite`, `date`, `user_iduser`, `user_role_idrole`) VALUES (?,?,?,?,?)");
+    $stmt = $pdo->prepare("INSERT INTO commande (codepromo_idcodepromo, quantite, date, user_iduser, user_role_idrole)VALUES (?, ?, NOW(), ?, ?)"
+    );
+
     $stmt->execute([$codePromo, $quantite, $user_id, $role_id]);
+
 
     // Vider le panier
     $_SESSION['panier'] = [];

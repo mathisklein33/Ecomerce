@@ -78,6 +78,6 @@
 </footer>
 
 
-<script src="./public/asset/js/js.js"></script>
+<script src="../asset/js/scrypt.js"></script>
 </body>
 </html>

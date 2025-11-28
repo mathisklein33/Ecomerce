@@ -6,7 +6,7 @@ if (!$conn) {
 }
 
 $sql = "
-SELECT * date
+SELECT *
 FROM produit
 ";
 $result = mysqli_query($conn, $sql);
@@ -35,22 +35,3 @@ if (!$result) {
         <p><strong>Prix :</strong> <?= htmlspecialchars($row['prix']) ?> €</p>
     </div>
 <?php endwhile; ?>
-
-<!--Script qui permet d'enlever les cards lors de la recherche-->
-<script>
-    const input = document.getElementById('search');
-    const cards = document.querySelectorAll('.card');
-
-    input.addEventListener('input', () => {
-        const q = input.value.trim().toLowerCase();
-
-        cards.forEach(card => {
-            const name = (card.dataset.name || '').toLowerCase();
-            const description = (card.dataset.description || '').toLowerCase();
-
-            // si q est vide -> montrer toutes les cards
-            const visible = q === '' || name.includes(q) || description.includes(q);
-            card.style.display = visible ? '' : 'none';
-        });
-    });
-</script>

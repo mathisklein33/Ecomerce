@@ -1,5 +1,6 @@
 <?php
 include '../public/includes/header.php';
+include  '../public/config/config.php';
 ?>
 
 

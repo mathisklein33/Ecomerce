@@ -9,15 +9,17 @@ if (!$conn) {
 // récupére base de donnée
 $sql = "
 SELECT
-    produit.idproduit,
-    produit.nom,
-    produit.description,
-    produit.prix,
-    produit.stock,
-    produit.image,
-    produit.date
-FROM produit
-ORDER BY produit.idproduit DESC
+    commande.idcommande,
+    commande.quantite,
+    codepromo.codepromocol AS codepromo,
+    commande.user_iduser,
+    user.firstname,
+    user.surname
+FROM commande
+INNER JOIN user ON user.iduser = commande.user_iduser
+LEFT JOIN codepromo 
+    ON commande.codepromo_idcodepromo = codepromo.idcodepromo
+ORDER BY commande.idcommande DESC
 ";
 
 $result = mysqli_query($conn, $sql); // récupére base de donnée
@@ -60,42 +62,33 @@ if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['id
             <label for="site-search">Search the site:</label>
             <input type="search" name="q" />
             <button>Search</button>
-            <a href="produit-creation.php">crée produit</a>
         </div>
     </section>
 
     <section>
         <div>
-            <h1>Liste des produits</h1>
+            <h1>Liste des commande</h1>
 
             <div>
-                    <?php
-                    while($row = mysqli_fetch_assoc($result)) : // boucle crée carde automatique
+                <?php
+                while($row = mysqli_fetch_assoc($result)) : // boucle crée carde automatique
                     ?>
 
                     <div>
-                        <h5><?= htmlspecialchars($row['nom']) ?></h5>
+                        <h5><strong>n° commande :</strong><?= htmlspecialchars($row['idcommande']) ?></h5>
 
-                        <img src="../public/asset/img/<?= htmlspecialchars($row['image']) ?>" alt="">
-
-                        <p><?= htmlspecialchars($row['description']) ?></p>
+                        <p><strong>Code promo :</strong> <?= htmlspecialchars($row['codepromo'] ?? "Aucun") ?></p>
 
                         <p>
-                            <strong>Stock :</strong> <?= htmlspecialchars($row['stock']) ?> <br>
+                            <?= htmlspecialchars($row['quantite']) ?>
                         </p>
 
                         <p>
-                            <strong>prix :</strong> <?= htmlspecialchars($row['prix']) ?> <strong>€</strong>
+
+                            <strong>Client :</strong>
+                            <?= htmlspecialchars($row['firstname']) ?>
+                            <?= htmlspecialchars($row['surname']) ?>
                         </p>
-
-                        <a href="delete.php?idproduit=<?= $row['idproduit'] ?>"
-                           onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');">
-                            <button type="button">Supprimer</button>
-                        </a>
-
-                        <a href="modifier.php?idproduit=<?= $row['idproduit'] ?>">
-                            <button type="button">Modifier</button>
-                        </a>
                     </div>
 
                 <?php endwhile; //boucle fin?>

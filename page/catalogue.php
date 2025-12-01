@@ -32,15 +32,16 @@ if (isset($_SESSION['panier'])){
 
         <h5><?= htmlspecialchars($row['nom']) ?></h5>
 
-        <img src="../public/asset/img/<?= htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['nom']) ?>">
-
-        <p><?= htmlspecialchars($row['description']) ?></p>
-        <p><strong>Stock :</strong> <?= htmlspecialchars($row['stock']) ?></p>
+        <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['nom']) ?>">
         <p><strong>Prix :</strong> <?= htmlspecialchars($row['prix']) ?> €</p>
-        <div><a href="#">Détails</a></div>
-        <a href="http://localhost/savouinos/public/includes/panier_add.php?id=<?= $row['idproduit'] ?>">
-            Ajouter au panier
-        </a>
+        <div>
+            <a href="https://localhost/savouinos/?page=produits&idproduit=<?= $row['idproduit'] ?>">Détails</a>
+        </div>
+        <div>
+            <a href="http://localhost/savouinos/public/includes/panier_add.php?id=<?= $row['idproduit'] ?>">
+                Ajouter au panier
+            </a>
+        </div>
     </div>
 <?php endwhile; ?>
 

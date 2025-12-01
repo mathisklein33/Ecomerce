@@ -1,6 +1,8 @@
 ﻿<?php
-include 'public/includes/header.php';
 include 'public/config/config.php';
+$displayHeader = true;
+$displayFooter = true;
+if($displayHeader) include 'public/includes/header.php';
 
 
 $routes = [
@@ -17,6 +19,7 @@ $routes = [
         'user' => __DIR__ . '/page/user.php',
         'panier'=> __DIR__ . '/page/panier.php',
         'cathalog'=> __DIR__ . '/page/catalogue.php',
+
 ];
 
 $page = $_GET['page'] ?? 'base';
@@ -25,6 +28,6 @@ $view = $routes[$page] ?? __DIR__ . '/page/404.php';
 
 include_once $view;
 
-include 'public/includes/footer.php';
+if($displayFooter) include 'public/includes/footer.php';
 ?>
 

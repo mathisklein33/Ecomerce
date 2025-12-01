@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ";
 
     if (mysqli_query($conn, $update)) {
-        header("Location: admin-produit.php?msg=updated");
+        header("Location: http://localhost/savouinos/?page=admin/produit&msg=updated");
         exit();
     } else {
         echo "Erreur : " . mysqli_error($conn);

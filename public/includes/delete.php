@@ -1,5 +1,5 @@
 ﻿<?php
-require '../public/config/config.php';
+require '../config/config.php';
 
 // Vérification de l'ID
 if (!isset($_GET['idproduit']) || !is_numeric($_GET['idproduit'])) {
@@ -18,7 +18,7 @@ $sql = "DELETE FROM produit WHERE idproduit = $id";
 
 if (mysqli_query($conn, $sql)) {
     mysqli_close($conn);
-    header('Location: admin-produit.php');
+    header('Location: http://localhost/savouinos/?page=admin/produit');
     exit;
 } else {
     echo "Erreur delete : " . mysqli_error($conn);

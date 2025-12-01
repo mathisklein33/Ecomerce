@@ -1,4 +1,10 @@
-﻿<!doctype html>
+﻿<?php
+session_start();
+include 'public/config/config.php';
+
+?>
+
+<!doctype html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">

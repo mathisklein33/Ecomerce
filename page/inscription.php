@@ -1,77 +1,93 @@
 ﻿<?php
-session_start();
-require 'public/config/config.php';
+
+
+require 'public/config/config.php'; // <-- assure-toi que $conn est bien ici
 
 $errorMessage = "";
 
-
+// Si déjà connecté → redirection
 if (isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit;
 }
 
-
-
+// Si formulaire soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
+    $firstname = trim($_POST['firstname']);
+    $surname   = trim($_POST['surname']);
+    $adresse   = trim($_POST['adresse']);
+    $email     = trim($_POST['email']);
+    $password  = $_POST['password'];
 
-    // Sélection de l'utilisateur via son email
-    $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
+    // Vérifier si l'email existe déjà
+    $stmt = $conn->prepare("SELECT iduser FROM user WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $exists = $stmt->get_result();
 
-    if ($result->num_rows === 1) {
+    if ($exists->num_rows > 0) {
+        $errorMessage = "Cet email est déjà utilisé.";
+    } else {
 
-        $user = $result->fetch_assoc();
+        // HASH DU MOT DE PASSE
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Vérification du mot de passe hashé
-        if (password_verify($password, $user['password'])) {
+        // INSERTION UTILISATEUR
+        $insert = $conn->prepare("
+            INSERT INTO user (firstname, surname, adresse, email, password, role_idrole)
+            VALUES (?, ?, ?, ?, ?, 2)
+        ");
+        $insert->bind_param("sssss", $firstname, $surname, $adresse, $email, $hashedPassword);
 
-            $_SESSION['user_id'] = $user['iduser'];
-            $_SESSION['email']   = $user['email'];
-            $_SESSION['role']    = $user['role_idrole'];
+        if ($insert->execute()) {
+
+            // Connexion auto après inscription
+            $_SESSION['user_id'] = $insert->insert_id;
+            $_SESSION['email']    = $email;
+            $_SESSION['role']     = 2;
 
             header("Location: index.php");
             exit;
-
         } else {
-            $errorMessage = "Mot de passe incorrect.";
+            $errorMessage = "Erreur lors de la création du compte.";
         }
-
-    } else {
-        $errorMessage = "Cet email n'existe pas.";
     }
 }
 ?>
 
+<!-- AFFICHAGE DU FORMULAIRE -->
+
 <div class="register-body">
 
-<div class="register-container">
-    <h2 class="register-title">Créer un compte</h2>
+    <div class="register-container">
+        <h2 class="register-title">Créer un compte</h2>
 
-    <form method="POST" class="register-form">
+        <?php if (!empty($errorMessage)) : ?>
+            <div style="color:red; text-align:center; margin-bottom:10px;">
+                <?= htmlspecialchars($errorMessage) ?>
+            </div>
+        <?php endif; ?>
 
-        <label class="register-label">Prénom :</label>
-        <input type="text" name="firstname" class="register-input" required>
+        <form method="POST" class="register-form">
 
-        <label class="register-label">Nom :</label>
-        <input type="text" name="surname" class="register-input" required>
+            <label class="register-label">Prénom :</label>
+            <input type="text" name="firstname" class="register-input" required>
 
-        <label class="register-label">Adresse :</label>
-        <input type="text" name="adresse" class="register-input" required>
+            <label class="register-label">Nom :</label>
+            <input type="text" name="surname" class="register-input" required>
 
-        <label class="register-label">Email :</label>
-        <input type="email" name="email" class="register-input" required>
+            <label class="register-label">Adresse :</label>
+            <input type="text" name="adresse" class="register-input" required>
 
-        <label class="register-label">Mot de passe :</label>
-        <input type="password" name="password" class="register-input" required>
+            <label class="register-label">Email :</label>
+            <input type="email" name="email" class="register-input" required>
 
-        <button type="submit" class="register-button">S'inscrire</button>
-    </form>
+            <label class="register-label">Mot de passe :</label>
+            <input type="password" name="password" class="register-input" required>
+
+            <button type="submit" class="register-button">S'inscrire</button>
+        </form>
+    </div>
+
 </div>
-
-</div>
-

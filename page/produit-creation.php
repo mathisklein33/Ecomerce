@@ -1,17 +1,13 @@
 ﻿<?php
-session_start();
-require '../public/config/config.php';
+
 
 /* ---------------------------------------------
      Vérification connexion + rôle admin
 ---------------------------------------------*/
-
-if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] == 2) {
-    exit();
-} else {
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
     header("Location: index.php");
+    exit;
 }
-
 /* ---------------------------------------------
      Traitement du formulaire
 --------------------------------------------- */

@@ -1,7 +1,10 @@
 ﻿<?php
 
 require '../public/config/config.php';
-
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
+    header("Location: index.php");
+    exit;
+}
 // Vérifier connexion
 if (!$conn) {
     die("Erreur de connexion MySQL : " . mysqli_connect_error());

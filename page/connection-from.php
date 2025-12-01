@@ -1,6 +1,6 @@
 ﻿<?php
-session_start();
-require 'public/config/config.php';
+
+$error = ""; // message d’erreur affiché dans le formulaire
 
 if (isset($_SESSION['user_id'])) {
     header("Location: http://localhost/savouinos/?page=user");
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Sélection de l'utilisateur via son email
+    // Sélection de l'utilisateur
     $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -22,49 +22,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $user = $result->fetch_assoc();
 
-        // Vérification du mot de passe hashé
+        // Vérification mot de passe
         if (password_verify($password, $user['password'])) {
 
-            // Stockage des infos utilisateurs
             $_SESSION['user_id'] = $user['iduser'];
             $_SESSION['email']   = $user['email'];
-            $_SESSION['role']    = $user['role_idrole']; // Optionnel
+            $_SESSION['role']    = $user['role_idrole'];
+
 
             header("Location: index.php");
             exit;
 
         } else {
-            echo "Mot de passe incorrect.";
+            $error = "Mot de passe incorrect.";
         }
 
     } else {
-        echo "Cet email n'existe pas.";
+        $error = "Cet email n'existe pas.";
     }
 }
 ?>
 
 <div class="login-body">
 
-<div class="login-container">
+    <div class="login-container">
 
-    <h2 class="login-title">Se connecter</h2>
+        <h2 class="login-title">Se connecter</h2>
 
-    <form method="POST" class="login-form">
+        <?php if (!empty($error)) : ?>
+            <div>
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
 
-        <label class="label">Email :</label>
-        <input type="email" name="email" class="input-field" required>
+        <form method="POST" class="login-form">
 
-        <label class="label">Mot de passe :</label>
-        <input type="password" name="password" class="input-field" required>
+            <label class="label">Email :</label>
+            <input type="email" name="email" class="input-field" required>
 
-        <button type="submit" class="btn-login">Se connecter</button>
-        <div class="mt-4">
-        <p class="signup-text">
-            Pas encore de compte ?
-            <a class="p-2 nonetext" href="http://localhost/savouinos/?page=inscription" >Inscription</a>
-        </p>
-        </div>
-    </form>
+            <label class="label">Mot de passe :</label>
+            <input type="password" name="password" class="input-field" required>
 
+            <button type="submit" class="btn-login">Se connecter</button>
+            <div class="mt-4">
+                <p class="signup-text">
+                    Pas encore de compte ?
+                    <a class="p-2 nonetext" href="http://localhost/savouinos/?page=inscription" >Inscription</a>
+                </p>
+            </div>
+        </form>
+
+    </div>
 </div>
-</div>
+

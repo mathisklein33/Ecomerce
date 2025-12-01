@@ -78,6 +78,8 @@
 </footer>
 
 
-<script src="../asset/js/scrypt.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="/savouinos/public/asset/js/scrypt.js"></script>
 </body>
 </html>

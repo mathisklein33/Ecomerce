@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stock       = $_POST['stock'];
 
     $id_user     = $_SESSION['user_id'];
-    $id_role     = $_SESSION['role_id']; // normalement 2 (admin)
+    $id_role     = $_SESSION['role']; // normalement 1 (admin)
 
     // Gestion de l'image fichier
     $imageName = null;

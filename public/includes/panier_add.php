@@ -44,5 +44,5 @@ if (isset($_SESSION['panier'][$id])) {
 }
 
 // Rediriger vers le panier
-header("Location: http://localhost/savouinos/?page=catalogue");
+header("Location: http://localhost/savouinos/?page=panier");
 exit;

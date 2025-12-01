@@ -1,48 +1,51 @@
 <?php
-session_start();
-$panier = $_SESSION['panier'] ?? [];
-$subtotal = 0; // Initialisation du sous-total
 
-// --- GESTION DES ACTIONS (Augmenter, Diminuer, Supprimer) ---
+// ----- TRAITEMENT AJAX (sans changer de page) -----
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax'])) {
 
-$action = $_GET['action'] ?? null;
-$id_produit = $_GET['id'] ?? null;
+    $panier = $_SESSION['panier'] ?? [];
+    $action = $_POST['action'];
+    $id = $_POST['id'];
 
-if ($action && $id_produit !== null) {
-    if (isset($panier[$id_produit])) {
+    if (isset($panier[$id])) {
 
         switch ($action) {
             case 'increase':
-                // Augmenter la quantité
-                $panier[$id_produit]['quantite']++;
+                $panier[$id]['quantite']++;
                 break;
 
             case 'decrease':
-                // Diminuer la quantité
-                $panier[$id_produit]['quantite']--;
-
-                // Si la quantité tombe à zéro ou moins, supprimer l'article
-                if ($panier[$id_produit]['quantite'] <= 0) {
-                    unset($panier[$id_produit]);
+                $panier[$id]['quantite']--;
+                if ($panier[$id]['quantite'] <= 0) {
+                    unset($panier[$id]);
                 }
                 break;
 
             case 'remove':
-                // Supprimer complètement l'article (corbeille)
-                unset($panier[$id_produit]);
+                unset($panier[$id]);
                 break;
         }
 
-        // Mettre à jour la session avec le nouveau panier
         $_SESSION['panier'] = $panier;
-
-        // Rediriger pour éviter la re-soumission du formulaire/lien
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit();
     }
+
+    // Recalcule du sous-total
+    $subtotal = 0;
+    foreach ($panier as $p) {
+        $subtotal += $p['prix'] * $p['quantite'];
+    }
+
+    echo json_encode([
+            'success' => true,
+            'quantity' => $panier[$id]['quantite'] ?? 0,
+            'subtotal' => $subtotal
+    ]);
+    exit;
 }
 
-// --- FIN GESTION DES ACTIONS ---
+// ----- AFFICHAGE NORMAL -----
+$panier = $_SESSION['panier'] ?? [];
+$subtotal = 0;
 ?>
 
 <div class="container py-5">
@@ -54,28 +57,27 @@ if ($action && $id_produit !== null) {
                 <p>Votre panier est vide.</p>
 
             <?php else: ?>
-                <?php
-                foreach ($panier as $id => $produit):
-
-                    // Total par ligne
+                <?php foreach ($panier as $id => $produit):
                     $lineTotal = $produit['prix'] * $produit['quantite'];
                     $subtotal += $lineTotal;
                     ?>
 
                     <div class="cart-item d-flex align-items-center p-3 mb-4 shadow-sm rounded-4">
 
-                        <img src="<?= $produit['image'] ?>" alt="image produit" class="item-img rounded">
+                        <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($produit['image']) ?>" alt="image produit" class="item-img rounded">
 
                         <div class="ms-3 flex-grow-1">
                             <h5 class="fw-semibold mb-1"><?= $produit['name'] ?></h5>
                             <p class="text-muted small"><?= $produit['description'] ?></p>
 
                             <div class="d-flex align-items-center quantity-box">
-                                <a href="?action=decrease&id=<?= $id ?>" class="btn btn-light">−</a>
 
-                                <p class="mx-3"><?= $produit['quantite'] ?></p>
+                                <button class="btn btn-light update-cart" data-action="decrease" data-id="<?= $id ?>">−</button>
 
-                                <a href="?action=increase&id=<?= $id ?>" class="btn btn-light">+</a>
+                                <p class="mx-3 quantite" data-id="<?= $id ?>"><?= $produit['quantite'] ?></p>
+
+                                <button class="btn btn-light update-cart" data-action="increase" data-id="<?= $id ?>">+</button>
+
                             </div>
                         </div>
 
@@ -83,9 +85,9 @@ if ($action && $id_produit !== null) {
                             <p class="item-price"><?= number_format($lineTotal, 2) ?>€</p>
                             <small class="text-muted"><?= number_format($produit['prix'], 2) ?>€ pièce</small>
                             <div class="mt-2">
-                                <a href="?action=remove&id=<?= $id ?>" class="text-danger">
+                                <button class="text-danger update-cart" data-action="remove" data-id="<?= $id ?>">
                                     <i class="bi bi-trash trash-icon"></i>
-                                </a>
+                                </button>
                             </div>
                         </div>
 
@@ -94,9 +96,10 @@ if ($action && $id_produit !== null) {
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
+
         <div class="col-lg-4">
+
             <?php
-            // Calculs finaux (utilisent $subtotal, qui est garanti d'exister)
             $tax = $subtotal * 0.08;
             $total = $subtotal + $tax;
             ?>
@@ -106,7 +109,7 @@ if ($action && $id_produit !== null) {
 
                 <div class="d-flex justify-content-between mb-2">
                     <p>Total (<?= count($panier) ?> article<?= count($panier) > 1 ? 's' : '' ?>)</p>
-                    <p><?= number_format($subtotal, 2) ?>€</p>
+                    <p id="subtotal"><?= number_format($subtotal, 2) ?>€</p>
                 </div>
 
                 <div class="d-flex justify-content-between mb-2">
@@ -116,13 +119,13 @@ if ($action && $id_produit !== null) {
 
                 <div class="d-flex justify-content-between mb-3">
                     <p>Taxe (8%)</p>
-                    <p><?= number_format($tax, 2) ?>€</p>
+                    <p id="tax"><?= number_format($tax, 2) ?>€</p>
                 </div>
 
                 <hr>
                 <div class="d-flex justify-content-between fw-bold mb-4">
                     <p>Total</p>
-                    <p class="text-primary"><?= number_format($total, 2) ?>€</p>
+                    <p class="text-primary" id="total"><?= number_format($total, 2) ?>€</p>
                 </div>
 
                 <a href="http://localhost/savouinos/?page=commande" class="btn btn-dark w-100 mb-3">Finaliser la commande</a>
@@ -132,3 +135,46 @@ if ($action && $id_produit !== null) {
         </div>
     </div>
 </div>
+
+<!-- ----- JAVASCRIPT AJAX ----- -->
+
+<script>
+    document.querySelectorAll('.update-cart').forEach(btn => {
+        btn.addEventListener('click', () => {
+
+            let id = btn.dataset.id;
+            let action = btn.dataset.action;
+
+            fetch("", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `ajax=1&action=${action}&id=${id}`
+            })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.success) {
+
+                        // Mise à jour quantité visuelle
+                        let q = document.querySelector(`.quantite[data-id="${id}"]`);
+                        if (q) q.textContent = data.quantity;
+
+                        // Mise à jour sous-total
+                        document.getElementById("subtotal").textContent = data.subtotal.toFixed(2) + "€";
+
+                        // Mise à jour taxe et total
+                        let tax = data.subtotal * 0.08;
+                        let total = data.subtotal + tax;
+
+                        document.getElementById("tax").textContent = tax.toFixed(2) + "€";
+                        document.getElementById("total").textContent = total.toFixed(2) + "€";
+
+                        // Si quantité = 0 → suppression de l'élément
+                        if (data.quantity <= 0) {
+                            btn.closest(".cart-item").remove();
+                        }
+                    }
+                });
+        });
+    });
+</script>

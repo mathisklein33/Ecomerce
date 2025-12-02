@@ -26,7 +26,7 @@ if (!$produit) {
 $item = [
     'name' => $produit['nom'],
     'description' => $produit['description'],
-    'image' => "../public/asset/img/" . $produit['image'],
+    'image' =>  $produit['image'] ,
     'prix' => floatval($produit['prix']),
     'quantite' => 1
 ];

@@ -1,4 +1,5 @@
 <?php
+require '../public/config/config.php';
 
 $row = '';
 
@@ -10,11 +11,10 @@ $id = (int) $_GET['idproduit'];
 
 // Récupération du produit
 $sql = "SELECT * FROM produit WHERE idproduit = $id";
-
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) == 0) {
-    header("https://localhost/savouinos/?page=zdvf");
+    die("Produit introuvable");
 }
 
 $produit = mysqli_fetch_assoc($result);
@@ -23,20 +23,23 @@ $produit = mysqli_fetch_assoc($result);
 <section>
     <h2><?= htmlspecialchars($produit['nom']) ?></h2>
     <div>
-        <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($produit['image']) ?>" alt="<?= $produit["nom"]?> ">
+        <img src="../public/asset/img/<?= htmlspecialchars($row['image']) ?>" alt="">
     </div>
     <div>
-        <p><?= htmlspecialchars($produit['description']) ?></p>
-        <p><strong>Stock :</strong> <?= htmlspecialchars($produit['stock']) ?></p>
-        <h3><strong>prix :</strong> <?= htmlspecialchars($produit['prix']) ?> <strong>€</strong></h3>
-    <div>
-        <a href="http://localhost/savouinos/public/includes/panier_add.php?id=<?= $produit['idproduit'] ?>">
-            Ajouter au panier
-        </a>
+        <p><?= htmlspecialchars($row['description']) ?></p>
+        <p><strong>Stock :</strong> <?= htmlspecialchars($row['stock']) ?></p>
+        <h3><strong>prix :</strong> <?= htmlspecialchars($row['prix']) ?> <strong>€</strong></h3>
     </div>
     <div>
-        <a href="#">Catalogue</a>
+        <a href="https://localhost/savouinos/?page=catalogue">retoure catalogue</a>
+        <a href="#">acheter</a>
+    </div>
+        
     <div>
+       <p>
+           typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+       </p>
+    </div>
 </section>
 
 

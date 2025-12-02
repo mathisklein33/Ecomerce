@@ -1,47 +1,61 @@
 <?php
-
 if (!$conn) {
     die("Erreur de connexion MySQL : " . mysqli_connect_error());
 }
 
-$sql = "
-SELECT *
-FROM produit
-";
+$sql = "SELECT * FROM produit";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
     die('Erreur SQL : ' . mysqli_error($conn));
 }
-if (isset($_SESSION['panier'])){
+
+if (isset($_SESSION['panier'])) {
     $panier = $_SESSION['panier'] ?? [];
 }
-
-//$panier = $panier + $add;
 ?>
 
-<input id="search" type="search" placeholder="Recherche...">
+
+
+<input id="search" type="search" placeholder=" 🔍  Recherche un produit...">
 
 
 
-<!--Creation des cards-->
-<?php while($row = mysqli_fetch_assoc($result)) : ?>
-    <div class="card"
-         data-name="<?= htmlspecialchars($row['nom'], ENT_QUOTES) ?>"
-         data-description="<?= htmlspecialchars($row['description'], ENT_QUOTES) ?>">
 
-        <h5><?= htmlspecialchars($row['nom']) ?></h5>
+<div class="container mt-4">
+    <div class="row">
 
-        <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['nom']) ?>">
-        <p><strong>Prix :</strong> <?= htmlspecialchars($row['prix']) ?> €</p>
-        <div>
-            <a href="https://localhost/savouinos/?page=produits&idproduit=<?= $row['idproduit'] ?>">Détails</a>
-        </div>
-        <div>
-            <a href="http://localhost/savouinos/public/includes/panier_add.php?id=<?= $row['idproduit'] ?>">
-                Ajouter au panier
-            </a>
-        </div>
+        <?php while($row = mysqli_fetch_assoc($result)) : ?>
+            <div class="col-md-4 col-lg-3">
+                <div class="product-card"
+                     data-name="<?= htmlspecialchars($row['nom'], ENT_QUOTES) ?>"
+                     data-description="<?= htmlspecialchars($row['description'], ENT_QUOTES) ?>">
+
+                    <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($row['image']) ?>"
+                         alt="<?= htmlspecialchars($row['nom']) ?>">
+
+                    <h5><?= htmlspecialchars($row['nom']) ?></h5>
+
+                    <p class="price-tag"><?= htmlspecialchars($row['prix']) ?> €</p>
+
+                    <div class="product-buttons">
+                        <a class="btn-details"
+                           href="https://localhost/savouinos/?page=produits&idproduit=<?= $row['idproduit'] ?>">
+                            Voir détails
+                        </a>
+
+                        <a class="btn-add"
+                           href="http://localhost/savouinos/public/includes/panier_add.php?id=<?= $row['idproduit'] ?>">
+                            Ajouter au panier 🛒
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        <?php endwhile; ?>
+
     </div>
-<?php endwhile; ?>
+</div>
+
+
 

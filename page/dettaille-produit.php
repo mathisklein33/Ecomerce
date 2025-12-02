@@ -31,9 +31,10 @@ $produit = mysqli_fetch_assoc($result);
         <h3><strong>prix :</strong> <?= htmlspecialchars($row['prix']) ?> <strong>€</strong></h3>
     </div>
     <div>
-        <a href="#">retoure catalogue</a>
+        <a href="https://localhost/savouinos/?page=catalogue">retoure catalogue</a>
         <a href="#">acheter</a>
     </div>
+        
     <div>
        <p>
            typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.

@@ -11,7 +11,7 @@
                 fabriqués avec amour et les meilleurs ingrédients biologiques.
             </p>
             <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
-                <a href="http://localhost/savouinos/?page=catalogue" class="btn btn-dark btn-lg px-4">Acheter Maintenant →</a>
+                <a href="#" class="btn btn-dark btn-lg px-4">Acheter Maintenant →</a>
                 <a href="#" class="btn btn-outline-light btn-lg px-4">En Savoir Plus</a>
             </div>
         </div>
@@ -155,7 +155,7 @@
             </div>
 
             <div class="text-center mt-5">
-                <a href="http://localhost/savouinos/?page=catalogue" class="btn btn-warning fw-bold px-4">Voir Tous les Produits →</a>
+                <a href="#" class="btn btn-warning fw-bold px-4">Voir Tous les Produits →</a>
             </div>
         </div>
     </section>

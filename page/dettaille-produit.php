@@ -35,7 +35,7 @@ $produit = mysqli_fetch_assoc($result);
         </a>
     </div>
     <div>
-        <a href="#">Catalogue</a>
+        <a href="https://localhost/savouinos/?page=catalogue">Catalogue</a>
     <div>
 </section>
 

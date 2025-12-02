@@ -48,3 +48,4 @@ include 'public/config/config.php';
     </div>
 
 </header>
+<script src="/savouinos/public/asset/js/scrypt.js"></script>

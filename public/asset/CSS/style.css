@@ -306,6 +306,50 @@ body {
     background-color: #005bb5;
 }
 
+    /* produit création */
+    .page-container {
+        background: #f1ecec;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 50px;
+    }
+
+
+    .product-card {
+        background: #fff;
+        width: 450px;
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid #e0dcdc;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        border: 1px solid #cfcfcf;
+        padding: 10px;
+    }
+
+    textarea.form-control {
+        resize: none;
+    }
+
+    .btn-submit {
+        background: #000;
+        color: white;
+        border-radius: 12px;
+        padding: 12px;
+        transition: 0.2s;
+        font-weight: bold;
+    }
+
+    .btn-submit:hover {
+        background: #333;
+    }
+
+
+
+
 /* produit création */
 .page-container {
     background: #f1ecec;

@@ -19,6 +19,14 @@ if (mysqli_num_rows($result) == 0) {
 
 $produit = mysqli_fetch_assoc($result);
 ?>
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Détaille du produit</title>
+    <link rel="stylesheet" href="../public/asset/CSS/detaille.css">
+</head>
 
 <section>
     <h2><?= htmlspecialchars($produit['nom']) ?></h2>

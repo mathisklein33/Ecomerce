@@ -9,6 +9,61 @@ $action = $_GET['action'] ?? null;
 $id_produit = $_GET['id'] ?? null;
 
 if ($action && $id_produit !== null) {
+
+    // On vérifie que le produit existe dans le panier
+    if (isset($panier[$id_produit])) {
+
+        // Récupérer le stock réel du produit dans la BDD
+        require 'public/config/config.php'; // si pas déjà inclus
+        $stmt = $conn->prepare("SELECT stock FROM produit WHERE idproduit = ?");
+        $stmt->bind_param("i", $id_produit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_assoc();
+        $stock_dispo = $data['stock'];
+
+        // Message d'erreur si besoin
+        $error = null;
+
+        switch ($action) {
+
+            case 'increase':
+                // Vérifier si on dépasse le stock
+                if ($panier[$id_produit]['quantite'] + 1 > $stock_dispo) {
+                    $error = "Stock insuffisant pour ce produit !";
+                } else {
+                    $panier[$id_produit]['quantite']++;
+                }
+                break;
+
+            case 'decrease':
+                $panier[$id_produit]['quantite']--;
+                if ($panier[$id_produit]['quantite'] <= 0) {
+                    unset($panier[$id_produit]);
+                }
+                break;
+
+            case 'remove':
+                unset($panier[$id_produit]);
+                break;
+        }
+
+        // Mise à jour session uniquement si OK
+        $_SESSION['panier'] = $panier;
+
+        // Si erreur → on la stocke dans la session
+        if ($error) {
+            $_SESSION['error_stock'] = $error;
+        }
+
+        // Redirection
+        header('Location: ?page=panier');
+        exit();
+    }
+}
+
+
+if ($action && $id_produit !== null) {
     // On vérifie que le produit existe dans le panier
     if (isset($panier[$id_produit])) {
         switch ($action) {
@@ -36,6 +91,7 @@ if ($action && $id_produit !== null) {
         exit();
     }
 }
+
 ?>
 
 <div class="container py-5">
@@ -49,9 +105,10 @@ if ($action && $id_produit !== null) {
                 <?php foreach ($panier as $id => $produit):
                     $lineTotal = $produit['prix'] * $produit['quantite'];
                     $subtotal += $lineTotal;
+                    echo $produit["image"];
                     ?>
                     <div class="cart-item d-flex align-items-center p-3 mb-4 shadow-sm rounded-4">
-                        <img src="<?= $produit['image'] ?>" alt="image produit" class="item-img rounded">
+                        <img src="public/asset/img/<?= $produit['image'] ?>" class="item-img rounded">
                         <div class="ms-3 flex-grow-1">
                             <h5 class="fw-semibold mb-1"><?= $produit['name'] ?></h5>
                             <p class="text-muted small"><?= $produit['description'] ?></p>

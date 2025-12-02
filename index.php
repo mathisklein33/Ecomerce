@@ -14,11 +14,13 @@ $routes = [
         'admin/produit' => __DIR__ . '/page/admin-produit.php',
         'admin/command' => __DIR__ . '/page/admin-command.php',
         'produit/creation' => __DIR__ . '/page/produit-creation.php',
-        'produit/modifier' => __DIR__ . '/page/modifier.php',
+        'produit/modifier' => __DIR__ . '/page/modifier-produit.php',
         'produit/supprimer' => __DIR__ . '/page/delete.php',
         'user' => __DIR__ . '/page/user.php',
         'panier'=> __DIR__ . '/page/panier.php',
         'catalogue'=> __DIR__ . '/page/catalogue.php',
+        'delete' => __DIR__ . '/public/includes/delete.php',
+
 ];
 
 $page = $_GET['page'] ?? 'base';

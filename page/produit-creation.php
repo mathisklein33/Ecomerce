@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($_FILES['image']['name'])) {
 
-        $uploadDir = "../public/asset/img/";
+        $uploadDir = "public/asset/img/";
         $imageName = time() . "_" . basename($_FILES['image']['name']); // nom du fichier
         $target    = $uploadDir . $imageName;
 

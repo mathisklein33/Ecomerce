@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2d467433-8e8b-4469-8b84-7ac217ebeef9" name="savouinos" url="http://localhost">
+        <fileTransfer mountedRoot="C:\xampp\htdocs\savouinos" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

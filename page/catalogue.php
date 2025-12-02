@@ -59,35 +59,3 @@ if (isset($_SESSION['panier'])) {
 
 
 
-<script>
-    function normalizeText(s) {
-        if (!s) return '';
-        return s
-            .normalize('NFD')
-            .replace(/\p{Diacritic}/gu, '')
-            .toLowerCase();
-    }
-
-    const input = document.getElementById('search');
-    const cards = document.querySelectorAll('.product-card');
-
-    input.addEventListener('input', () => {
-        const raw = input.value.trim();
-        if (raw === '') {
-            cards.forEach(c => c.style.display = '');
-            return;
-        }
-
-        const tokens = normalizeText(raw).split(/\s+/).filter(Boolean);
-
-        cards.forEach(card => {
-            const name = normalizeText(card.dataset.name || '');
-            const description = normalizeText(card.dataset.description || '');
-            const hay = name + ' ' + description;
-
-            const matchesAll = tokens.every(t => hay.includes(t));
-
-            card.style.display = matchesAll ? '' : 'none';
-        });
-    });
-</script>

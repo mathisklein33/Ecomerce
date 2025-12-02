@@ -1,72 +1,98 @@
 <?php
-session_start();
-// Vérification panier non vide
-if (empty($_SESSION['panier'])) {
+// Vérifier si le panier existe
+if (!isset($_SESSION['panier']) || empty($_SESSION['panier'])) {
     die("Panier vide.");
 }
 
-// Récupération du panier
 $panier = $_SESSION['panier'];
 
 // Données client par défaut
 $client_data = [
         "firstname" => "",
-        "surname" => "",
-        "email" => "",
-        "adresse" => ""
+        "surname"   => "",
+        "email"     => "",
+        "adresse"   => ""
 ];
 
-// Si utilisateur connecté → récupérer info DB
+// Si utilisateur connecté → récupérer les infos
 if (isset($_SESSION['user_id'])) {
 
-    $stmt = $pdo->prepare("SELECT iduser, surname, firstname, email, adresse FROM user WHERE iduser = ?");
-    $stmt->execute([$_SESSION['user_id']]);
-    $client_data = $stmt->fetch(PDO::FETCH_ASSOC) ?: $client_data;
+    $stmt = mysqli_prepare($conn, "
+        SELECT iduser, surname, firstname, email, adresse 
+        FROM user 
+        WHERE iduser = ?
+    ");
+    mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $client_data = mysqli_fetch_assoc($result) ?: $client_data;
+    }
+
+    mysqli_stmt_close($stmt);
 }
 
+// Si formulaire envoyé
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
-if(isset($_POST) && !empty($_POST)){
+    $nom     = htmlspecialchars(trim($_POST['surname']));
+    $prenom  = htmlspecialchars(trim($_POST['firstname']));
+    $email   = htmlspecialchars(trim($_POST['email']));
+    $adresse = htmlspecialchars(trim($_POST['adresse']));
 
-    $nom = htmlspecialchars(trim($_POST['surname']));
-    $prenom= htmlspecialchars(trim($_POST['firstname']));
-    $email= htmlspecialchars(trim($_POST['email']));
-    $adresse  = htmlspecialchars(trim($_POST['adresse']));
-
-    // Quantité totale du panier
+    // Quantité totale
     $quantite = array_sum(array_column($panier, 'quantite'));
 
-    // Pas encore de code promo
-    $codePromo = NULL;
+    // Code promo → NULL si vide
+    $codePromo = !empty($_POST['codepromo']) ? trim($_POST['codepromo']) : NULL;
 
     // User
     $user_id = $_SESSION['user_id'] ?? NULL;
-    $role_id = $_SESSION['user_role'] ?? 2; // client
+    $role_id = $_SESSION['user_role'] ?? 2;
 
-    $stmt = $pdo->prepare("INSERT INTO commande (codepromo_idcodepromo, quantite, date, user_iduser, user_role_idrole)VALUES (?, ?, NOW(), ?, ?)"
+    // Insert commande
+    $stmt = mysqli_prepare($conn, "
+        INSERT INTO commande (codepromo_idcodepromo, quantite, date, user_iduser, user_role_idrole)
+        VALUES (?, ?, NOW(), ?, ?)
+    ");
+
+    mysqli_stmt_bind_param(
+            $stmt,
+            "iiii",
+            $codePromo,
+            $quantite,
+            $user_id,
+            $role_id
     );
 
-    $stmt->execute([$codePromo, $quantite, $user_id, $role_id]);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 
-
-    // Vider le panier
+    // Vider panier
     $_SESSION['panier'] = [];
 
-    header('Location: http://localhost/e-commerce/?page=confirmation');
+    // Redirection correcte vers SAVOUINOS
+    header("Location: http://localhost/savouinos/?page=confirmation");
     exit;
 }
 
-//Fonction calcul total
+// Fonction total
 function calculerTotal($panier) {
     $total = 0;
+    if (!is_array($panier)) return 0;
+
     foreach ($panier as $item) {
-        $total += $item['prix'] * $item['quantite'];
+        $prix = isset($item['prix']) ? (float)$item['prix'] : 0;
+        $qte  = isset($item['quantite']) ? (int)$item['quantite'] : 0;
+        $total += $prix * $qte;
     }
     return $total;
 }
 
 $total_commande = calculerTotal($panier);
 ?>
-
 
 <div>
     <h2>🚚 Finaliser la Commande</h2>
@@ -105,7 +131,6 @@ $total_commande = calculerTotal($panier);
                 </div>
 
                 <div >
-                    <p> Champs obligatoires</p>
                     <button type="submit" >Confirmer et Commander (<?php echo number_format($total_commande, 2, ',', ' '); ?> €)</button>
                 </div>
             </form>
@@ -125,28 +150,19 @@ $total_commande = calculerTotal($panier);
                 </thead>
                 <tbody>
                 <?php foreach ($panier as $id => $item):
-                    $total_ligne = $item['prix'] * $item['quantite'];
+                    $prix = isset($item['prix']) ? (float)$item['prix'] : 0;
+                    $qte  = isset($item['quantite']) ? (int)$item['quantite'] : 0;
+                    $total_ligne = $prix * $qte;
+
+                    // fallback pour le nom
+                    $produit_nom = $item['nom'] ?? $item['name'] ?? '';
                     ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($item['nom']); ?></td>
-                        <td><?php echo number_format($item['prix'], 2, ',', ' '); ?> €</td>
-                        <td><?php echo $item['quantite']; ?></td>
+                        <td><?php echo htmlspecialchars($produit_nom); ?></td>
+                        <td><?php echo number_format($prix, 2, ',', ' '); ?> €</td>
+                        <td><?php echo $qte; ?></td>
                         <td><?php echo number_format($total_ligne, 2, ',', ' '); ?> €</td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
-
-            <div>
-                <p>Sous-total : <?php echo number_format($total_commande, 2, ',', ' '); ?> €</p>
-                <p >TOTAL FINAL : <?php echo number_format($total_commande, 2, ',', ' '); ?> €</p>
-            </div>
-
-            <a href="panier.php">Modifier le panier</a>
-        </div>
-    </div>
-</div>
-
-
-
-

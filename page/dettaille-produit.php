@@ -31,7 +31,7 @@ $produit = mysqli_fetch_assoc($result);
                 </h2>
 
                 <div class="product-image-container text-center mb-4">
-                    <img src="../public/asset/img/<?= htmlspecialchars($produit['image']) ?>"
+                    <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($produit['image']) ?>"
                          alt=""
                          class="product-image img-fluid rounded">
                 </div>
@@ -50,7 +50,9 @@ $produit = mysqli_fetch_assoc($result);
                     <a href="https://localhost/savouinos/?page=catalogue" class="btn btn-secondary w-50">
                         Retour au catalogue
                     </a>
-                    <a href="#" class="btn btn-primary w-50">Acheter</a>
+                    <a href="http://localhost/savouinos/public/includes/panier_add.php?id=<?= $produit['idproduit'] ?>" class="btn btn-primary w-50">
+                        Ajouter au panier 🛒
+                    </a>
                 </div>
 
             </div>

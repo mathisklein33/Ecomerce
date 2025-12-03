@@ -39,12 +39,12 @@ if (isset($_SESSION['panier'])) {
                     <p class="price-tag"><?= htmlspecialchars($row['prix']) ?> €</p>
 
                     <div class="product-buttons">
-                        <a class="btn-details"
+                        <a class="btn-details .btncolor2 "
                            href="https://localhost/savouinos/?page=produits&idproduit=<?= $row['idproduit'] ?>">
                             Voir détails
                         </a>
 
-                        <a class="btn-add"
+                        <a class="btn-add btncolor"
                            href="http://localhost/savouinos/public/includes/panier_add.php?id=<?= $row['idproduit'] ?>">
                             Ajouter au panier 🛒
                         </a>

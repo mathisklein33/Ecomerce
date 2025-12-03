@@ -59,51 +59,62 @@ if (isset($_GET['action'], $_GET['idproduit']) && $_GET['action'] === 'supprimer
 }
 
 ?>
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page produit admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../public/asset/CSS/style.css">
 
-<section>
-    <div>
-        <label for="site-search">Search the site:</label>
-        <input type="search" name="q" />
-        <button>Search</button>
-        <a href="http://localhost/savouinos/?page=produit/creation">crée produit</a>
+</head>
+<body>
+
+</body>
+</html>
+
+<section class="admin-container">
+
+    <div class="search-box mb-4">
+        <label>Rechercher :</label>
+        <input class="form-control d-inline-block w-50" type="search" name="q">
+        <a href="http://localhost/savouinos/?page=produit/creation" class="btn btn-success ms-3">
+            Créer un produit
+        </a>
     </div>
-</section>
 
-<section>
-    <div>
-        <h1>Liste des produits</h1>
+    <div class="admin-header">
+        <h1 class="text-center">Liste des produits</h1>
+    </div>
 
-        <div>
-            <?php while($row = mysqli_fetch_assoc($result)) : ?>
-
-                <div>
-                    <h5><?= htmlspecialchars($row['nom']) ?></h5>
-
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-start p-4">
+        <?php while($row = mysqli_fetch_assoc($result)) : ?>
+            <div class="col d-flex">
+                <div class="product-card w-100">
+                    <h5 class="fw-bold"><?= htmlspecialchars($row['nom']) ?></h5>
                     <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($row['image']) ?>" alt="">
-
                     <p><?= htmlspecialchars($row['description']) ?></p>
+                    <p><strong>Stock :</strong> <?= htmlspecialchars($row['stock']) ?></p>
+                    <p><strong>Prix :</strong> <?= htmlspecialchars($row['prix']) ?> €</p>
 
-                    <p>
-                        <strong>Stock :</strong> <?= htmlspecialchars($row['stock']) ?>
-                    </p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="http://localhost/savouinos/public/includes/delete.php?idproduit=<?= $row['idproduit'] ?>"
+                           onclick="return confirm('Supprimer ce produit ?');"
+                           class="btn btn-delete btn-action">
+                            Supprimer
+                        </a>
 
-                    <p>
-                        <strong>Prix :</strong> <?= htmlspecialchars($row['prix']) ?> €
-                    </p>
-
-                    <a href="http://localhost/savouinos/public/includes/delete.php?idproduit=<?= $row['idproduit'] ?>"
-                       onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');">
-                        <button type="button">Supprimer</button>
-                    </a>
-
-                    <a href="http://localhost/savouinos/?page=produit/modifier&idproduit=<?= $row['idproduit'] ?>">
-                        <button type="button">Modifier</button>
-                    </a>
-
+                        <a href="http://localhost/savouinos/?page=produit/modifier&idproduit=<?= $row['idproduit'] ?>"
+                           class="btn btn-edit btn-action">
+                            Modifier
+                        </a>
+                    </div>
                 </div>
-
-            <?php endwhile; ?>
-        </div>
-
+            </div>
+        <?php endwhile; ?>
     </div>
+
+
 </section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

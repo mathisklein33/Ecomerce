@@ -1,6 +1,6 @@
 ﻿<?php
-// Si la session n'est pas démarrée ici, décommente :
-// session_start();
+
+
 
 // Vérification connexion
 if (!$conn) {
@@ -11,9 +11,9 @@ if (!$conn) {
 // RÉCUPÉRATION DES CLÉS COMPOSITES (GET)
 // ------------------------------------------------------
 if (
-    !isset($_GET['iduser']) || empty($_GET['iduser']) ||
-    !isset($_GET['email'])  || empty($_GET['email'])  ||
-    !isset($_GET['role'])   || empty($_GET['role'])
+        !isset($_GET['iduser']) || empty($_GET['iduser']) ||
+        !isset($_GET['email'])  || empty($_GET['email'])  ||
+        !isset($_GET['role'])   || empty($_GET['role'])
 ) {
     die("Identifiant utilisateur incomplet");
 }
@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailNew  = $_POST['email']     ?? '';
     $adresse   = $_POST['adresse']   ?? '';
 
+
     if (empty($firstname) || empty($surname) || empty($emailNew)) {
         die("Merci de remplir les champs obligatoires.");
     }
@@ -73,15 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     mysqli_stmt_bind_param(
-        $stmt2,
-        "ssssisi",
-        $firstname,
-        $surname,
-        $emailNew,
-        $adresse,
-        $id,
-        $emailPK,
-        $rolePK
+            $stmt2,
+            "ssssisi",
+            $firstname,
+            $surname,
+            $emailNew,
+            $adresse,
+            $id,        // iduser (clé)
+            $emailPK,   // email d'origine (clé)
+            $rolePK     // role_idrole (clé)
     );
 
     mysqli_stmt_execute($stmt2);
@@ -90,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Erreur UPDATE : " . mysqli_error($conn));
     }
 
+    // Ici : déconnexion + redirection vers la page de connexion
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
@@ -97,8 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION = [];
     session_destroy();
 
+
     header("Location: http://localhost/savouinos/?page=login&msg=relogin");
     exit;
+
 }
 
 ?>
@@ -110,6 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <h3 class="text-center mb-4">Modifier l'utilisateur</h3>
 
+                <!-- 🔻 Message d'avertissement -->
                 <div class="alert alert-warning">
                     Toute modification de vos informations entraînera votre déconnexion
                     et vous devrez vous reconnecter.
@@ -141,10 +146,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                value="<?= htmlspecialchars($user['adresse']) ?>">
                     </div>
 
-                    <button class="btn btn-primary w-100 mb-3">Enregistrer</button>
+                    <div class="mb-3">
+                        <label class="form-label">Rôle (non modifiable)</label>
+                        <input type="text" class="form-control"
+                               value="<?= $user['role_idrole'] == 1 ? 'Admin' : 'Utilisateur' ?>"
+                               disabled>
+                    </div>
 
-                    <!-- Ajout des classes Bootstrap uniquement -->
-                    <a href="index.php" class="btn btn-secondary w-100 text-center">Retour accueil</a>
+                    <button class="btn btn-primary w-100">Enregistrer</button>
 
                 </form>
 

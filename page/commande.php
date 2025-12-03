@@ -94,75 +94,100 @@ function calculerTotal($panier) {
 $total_commande = calculerTotal($panier);
 ?>
 
-<div>
-    <h2>🚚 Finaliser la Commande</h2>
+<div class="checkout-page">
 
-    <div>
+    <h2 class="page-title">Finaliser la commande</h2>
 
-        <div >
-            <h3>1. Vos Coordonnées et Adresse de Livraison</h3>
+    <div class="container checkout-container">
+        <div class="row justify-content-center">
 
-            <form action="#" method="POST">
+            <!-- FORMULAIRE CLIENT -->
+            <div class="col-lg-6">
+                <div class="checkout-card">
+                    <h3 class="section-title">1. Informations de livraison</h3>
 
-                <div >
-                    <label for="firstname">Prénom : </label>
-                    <input type="text" id="firstname" name="firstname" value="<?php echo htmlspecialchars($client_data['firstname']); ?>" required>
+                    <form action="#" method="POST">
+
+                        <div class="form-group">
+                            <label for="firstname">Prénom</label>
+                            <input type="text" id="firstname" name="firstname"
+                                   value="<?= htmlspecialchars($client_data['firstname']); ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="surname">Nom</label>
+                            <input type="text" id="surname" name="surname"
+                                   value="<?= htmlspecialchars($client_data['surname']); ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email"
+                                   value="<?= htmlspecialchars($client_data['email']); ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adresse">Adresse de livraison</label>
+                            <textarea id="adresse" name="adresse" rows="3" required><?= htmlspecialchars($client_data['adresse']); ?></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Code Promo (optionnel)</label>
+                            <div class="promo-group">
+                                <input type="text" id="codepromo" name="codepromo" placeholder="EX: SAVOIR15">
+                                <button type="button" class="btn-promo">Appliquer</button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            Confirmer & Commander (<?= number_format($total_commande, 2, ',', ' '); ?> €)
+                        </button>
+
+                    </form>
                 </div>
+            </div>
 
-                <div>
-                    <label for="surname">Nom : </label>
-                    <input type="text" id="surname" name="surname" value="<?php echo htmlspecialchars($client_data['surname']); ?>" required>
-                </div>
+            <!-- RÉCAP PANIER -->
+            <div class="col-lg-5">
+                <div class="checkout-card">
+                    <h3 class="section-title">2. Récapitulatif du panier</h3>
 
-                <div>
-                    <label for="email">Email : </label>
-                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($client_data['email']); ?>" required>
-                </div>
+                    <table class="recap-table">
+                        <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                <div>
-                    <label for="adresse">Adresse de Livraison (Rue, Ville, Code Postal) : *</label>
-                    <textarea id="adresse" name="adresse" rows="4" required><?php echo htmlspecialchars($client_data['adresse']); ?></textarea>
-                </div>
+                        <?php foreach ($panier as $id => $item):
+                            $prix = (float)$item['prix'];
+                            $qte  = (int)$item['quantite'];
+                            $total_ligne = $prix * $qte;
+                            $produit_nom = $item['nom'] ?? $item['name'] ?? '';
+                            ?>
+                            <tr>
+                                <td><?= htmlspecialchars($produit_nom); ?></td>
+                                <td><?= number_format($prix, 2, ',', ' '); ?> €</td>
+                                <td><?= $qte; ?></td>
+                                <td><?= number_format($total_ligne, 2, ',', ' '); ?> €</td>
+                            </tr>
+                        <?php endforeach; ?>
 
-                <div>
-                    <h4>Code Promotionnel (Optionnel)</h4>
-                    <input type="text" id="codepromo" name="codepromo" placeholder="Entrez votre code promo">
-                    <button type="button" >Appliquer</button>
-                </div>
+                        </tbody>
+                    </table>
 
-                <div >
-                    <button type="submit" >Confirmer et Commander (<?php echo number_format($total_commande, 2, ',', ' '); ?> €)</button>
+                    <div class="recap-total">
+                        Total : <strong><?= number_format($total_commande, 2, ',', ' '); ?> €</strong>
+                    </div>
                 </div>
-            </form>
+            </div>
+
         </div>
+    </div>
 
-        <div>
-            <h3>2. Récapitulatif de votre Panier</h3>
+</div>
 
-            <table>
-                <thead>
-                <tr>
-                    <th>Produit</th>
-                    <th>Prix U.</th>
-                    <th>Qté</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($panier as $id => $item):
-                    $prix = isset($item['prix']) ? (float)$item['prix'] : 0;
-                    $qte  = isset($item['quantite']) ? (int)$item['quantite'] : 0;
-                    $total_ligne = $prix * $qte;
-
-                    // fallback pour le nom
-                    $produit_nom = $item['nom'] ?? $item['name'] ?? '';
-                    ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($produit_nom); ?></td>
-                        <td><?php echo number_format($prix, 2, ',', ' '); ?> €</td>
-                        <td><?php echo $qte; ?></td>
-                        <td><?php echo number_format($total_ligne, 2, ',', ' '); ?> €</td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>

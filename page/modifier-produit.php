@@ -1,6 +1,5 @@
 ﻿<?php
 
-
 if (!isset($_GET['idproduit']) || empty($_GET['idproduit'])) {
     die("ID produit manquant");
 }

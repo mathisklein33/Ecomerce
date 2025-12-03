@@ -390,6 +390,9 @@ textarea.form-control {
 .btn-submit:hover {
     background: #333;
 }
+/*
+CSS pour la page catalogue
+ */
 
 #search {
     width: 60%;
@@ -476,6 +479,9 @@ textarea.form-control {
 .product-section {
     background: #fafafa;
 }
+/*
+Fin css pour la page catalogue
+ */
 
 /* Carte du produit */
 .product-card {
@@ -538,3 +544,74 @@ textarea.form-control {
     font-size: 1.4rem;
     color: #444;
 }
+/*
+CSS pour la page modifier-produit.php
+ */
+
+.form-container {
+    max-width: 600px;
+}
+
+
+form {
+    background: linear-gradient(145deg, #7cb2f1, #346fdf, #114ab6, #0b3585);
+    border-radius: 20px;
+    color: #10008d;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Titre du formulaire */
+form h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Labels */
+form label {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Inputs et textarea */
+form input,
+form textarea {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    margin-top: 6px;
+    transition: border 0.2s, box-shadow 0.2s;
+    resize: vertical;
+}
+
+form input:focus,
+form textarea:focus {
+    outline: none;
+    border-color: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Bouton */
+.btn-submit {
+    width: 100%;
+    border-radius: 12px;
+    font-weight: 600;
+    background-color: #ffffff;
+    color: #000102;
+    border: none;
+    font-size: 1rem;
+    margin-top: 15px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #e6f0ff;
+    transform: scale(1.05);
+}
+
+

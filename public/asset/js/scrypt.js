@@ -252,3 +252,18 @@ input.addEventListener('input', () => {
         card.style.display = matchesAll ? '' : 'none';
     });
 });
+
+/*
+JS pour la page catalogue
+ */
+// catalogue.js
+document.addEventListener("DOMContentLoaded", function() {
+    const cards = document.querySelectorAll('.product-card');
+
+    // Animation fade-in avec délai progressif
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.add('show');
+        }, index * 150); // décalage de 150ms entre chaque carte
+    });
+});

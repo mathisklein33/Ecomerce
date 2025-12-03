@@ -471,3 +471,70 @@ textarea.form-control {
 .btn-add:hover {
     background: #276dff;
 }
+
+
+/*
+css pour la page admin-produit
+ */
+/* --- CARD BLEUE PREMIUM --- */
+
+
+ .product-card {
+     background: linear-gradient(145deg, #1e63ff, #3a89ff);
+     border-radius: 20px;
+     color: white;
+     border: 1px solid rgba(255,255,255,0.25);
+     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+ }
+
+.product-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.product-card h5 {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.product-card p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.btn-action {
+    border-radius: 12px;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.btn-delete {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color: #ff1a1a;
+    transform: scale(1.05);
+}
+
+.btn-edit {
+    background-color: #ffffff;
+    color: #1e63ff;
+    border: none;
+}
+
+.btn-edit:hover {
+    background-color: #e6f0ff;
+    transform: scale(1.05);
+}

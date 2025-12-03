@@ -2,7 +2,7 @@
 <div class="site-container">
 
     <!-- HERO -->
-    <section class="py-5 bg-secondary text-white text-center">
+    <section class="py-5 sectiongray mb-5 text-white text-center">
         <div class="container">
             <p class="tag-line mb-1 fs-5">Naturel & Biologique</p>
             <h1 class="fw-bold display-5 mb-3">Luxe Pur pour Votre Peau</h1>
@@ -18,7 +18,7 @@
     </section>
 
     <!-- IMAGE + TEXTE -->
-    <section class="py-5 bg-primary text-white">
+    <section class="py-5 sectionblue2 text-white">
         <div class="container">
             <div class="row align-items-center g-4">
                 <div class="col-lg-6 text-center">
@@ -88,7 +88,7 @@
     </section>
 
     <!-- PRODUITS -->
-    <section class="py-5 bg-primary text-white">
+    <section class="py-5 sectionblue text-white">
         <div class="container">
             <h2 class="text-center fw-bold">Nos Produits Phares</h2>
             <p class="text-center text-white-50 mb-4">Découvrez nos savons naturels les plus vendus</p>

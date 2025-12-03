@@ -15,7 +15,7 @@ if (isset($_SESSION['panier'])) {
 }
 ?>
 
-
+<section class="border">
 
 <input id="search" type="search" placeholder=" 🔍  Recherche un produit...">
 
@@ -56,6 +56,6 @@ if (isset($_SESSION['panier'])) {
 
     </div>
 </div>
-
+</section>
 
 

@@ -252,3 +252,4 @@ input.addEventListener('input', () => {
         card.style.display = matchesAll ? '' : 'none';
     });
 });
+

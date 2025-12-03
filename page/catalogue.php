@@ -57,5 +57,7 @@ if (isset($_SESSION['panier'])) {
     </div>
 </div>
 </section>
+<script src="../public/asset/js/scrypt.js"></script>
+
 
 

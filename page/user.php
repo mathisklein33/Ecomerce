@@ -21,15 +21,16 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
 if (!$user) {
-    die("Utilisateur introuvable.");
+    header("Location: http://localhost/savouinos/?page=deconnexion");
+    exit;
 }
 
 // Mise à jour de la session rôle
 $_SESSION['role'] = $user['role_idrole'];
 ?>
 
-<section class="profile-section d-flex justify-content-center align-items-start pt-5">
-    <div class="profile-card p-4 text-center">
+<section class="profile-section d-flex justify-content-center align-items-start pt-5 border">
+    <div class="profile-card p-4 text-center mb-5  ">
 
         <!-- Avatar dynamique avec firstname + surname -->
         <div>
@@ -41,8 +42,14 @@ $_SESSION['role'] = $user['role_idrole'];
 <p class="email"><?= htmlspecialchars($user['email']) ?></p>
 
 <p>Adresse : <?= htmlspecialchars($user['adresse']) ?></p>
+        <a class="btn btn-outline-dark mb-4"
+           href="http://localhost/savouinos/?page=user/modifier&iduser=<?= urlencode($user['iduser']) ?>&email=<?= urlencode($user['email']) ?>&role=<?= urlencode($user['role_idrole']) ?>">
+            Modifier information
+        </a>
 
-<button class="btn btn-outline-dark mb-4">Modifier information</button>
+
+
+
 
 <div class="order-history-title p-2">
     Historique de commande

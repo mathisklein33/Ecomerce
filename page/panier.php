@@ -94,6 +94,7 @@ if ($action && $id_produit !== null) {
 
 ?>
 
+<section class="border">
 <div class="container py-5">
     <h2 class="mb-4 fw-bold">Votre panier</h2>
     <div class="row">
@@ -105,7 +106,6 @@ if ($action && $id_produit !== null) {
                 <?php foreach ($panier as $id => $produit):
                     $lineTotal = $produit['prix'] * $produit['quantite'];
                     $subtotal += $lineTotal;
-                    echo $produit["image"];
                     ?>
                     <div class="cart-item d-flex align-items-center p-3 mb-4 shadow-sm rounded-4">
                         <img src="public/asset/img/<?= $produit['image'] ?>" class="item-img rounded">
@@ -163,3 +163,4 @@ if ($action && $id_produit !== null) {
 
     </div>
 </div>
+</section>

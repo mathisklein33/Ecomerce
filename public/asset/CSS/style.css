@@ -703,7 +703,7 @@ CSS pour la page modifier-produit.php
 }
 
 
-form {
+.form {
     background: linear-gradient(145deg, #7cb2f1, #346fdf, #114ab6, #0b3585);
     border-radius: 20px;
     color: #10008d;

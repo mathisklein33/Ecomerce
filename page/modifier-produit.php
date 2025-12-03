@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </html>
 
 <div class="container form-container">
-    <form method="POST" class="mx-6" >
+    <form method="POST" class="form mx-6" >
         <h2 class="mt-3">Modifier le produit : <?= htmlspecialchars($produit['nom']) ?></h2>
 
         <div class="mb-3 p-4">

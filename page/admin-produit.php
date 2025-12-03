@@ -96,9 +96,10 @@ if (isset($_GET['action'], $_GET['idproduit']) && $_GET['action'] === 'supprimer
                         <button type="button">Supprimer</button>
                     </a>
 
-                    <a href="http://localhost/savouinos/public/includes/?page=produit/modifier&idproduit=<?= $row['idproduit'] ?>">
+                    <a href="http://localhost/savouinos/?page=produit/modifier&idproduit=<?= $row['idproduit'] ?>">
                         <button type="button">Modifier</button>
                     </a>
+
                 </div>
 
             <?php endwhile; ?>

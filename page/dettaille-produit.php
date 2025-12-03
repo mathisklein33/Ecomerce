@@ -31,8 +31,8 @@ $produit = mysqli_fetch_assoc($result);
                 </h2>
 
                 <div class="product-image-container text-center mb-4">
-                    <img src="../public/asset/img/<?= htmlspecialchars($produit['image']) ?>"
-                         alt=""
+                    <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($produit['image']) ?>"
+                         alt="<?= htmlspecialchars($produit['nom']) ?>"
                          class="product-image img-fluid rounded">
                 </div>
 

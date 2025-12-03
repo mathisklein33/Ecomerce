@@ -20,7 +20,8 @@ $routes = [
         'panier'=> __DIR__ . '/page/panier.php',
         'catalogue'=> __DIR__ . '/page/catalogue.php',
         'delete' => __DIR__ . '/public/includes/delete.php',
-
+        'user/modifier' => __DIR__ . "/page/modifier.php",
+        'deconnexion' => __DIR__ . "/public/includes/deconnexion.php"
 ];
 
 $page = $_GET['page'] ?? 'base';

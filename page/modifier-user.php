@@ -146,14 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                value="<?= htmlspecialchars($user['adresse']) ?>">
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Rôle (non modifiable)</label>
-                        <input type="text" class="form-control"
-                               value="<?= $user['role_idrole'] == 1 ? 'Admin' : 'Utilisateur' ?>"
-                               disabled>
-                    </div>
+                    <button class="btn btncolor w-100">Enregistrer</button>
 
-                    <button class="btn btn-primary w-100">Enregistrer</button>
+                   <a href="index.php">
+                       <button class="mt-3 btn btncolor w-100">modifier mot de passe</button>
+                   </a>
+
 
                 </form>
 

@@ -56,7 +56,7 @@ footer h2 {
 }
 
 .profile-card {
-    background: white;
+    background: #f6f0f0;
     border-radius: 20px;
     max-width: 450px;
     width: 100%;
@@ -316,13 +316,7 @@ body {
     }
 
 
-    .product-card {
-        background: #fff;
-        width: 450px;
-        padding: 30px;
-        border-radius: 20px;
-        border: 1px solid #e0dcdc;
-    }
+
 
     .form-control {
         border-radius: 12px;
@@ -358,13 +352,7 @@ body {
 }
 
 
-.product-card {
-    background: #fff;
-    width: 450px;
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid #e0dcdc;
-}
+
 
 .form-control {
     border-radius: 12px;
@@ -406,15 +394,6 @@ textarea.form-control {
     box-shadow: 0 0 8px rgba(122,160,255,0.4);
 }
 
-.product-card {
-    background: white;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: transform .2s;
-    width: 100%;
-    margin-bottom: 30px;
-}
 
 .product-card:hover {
     transform: translateY(-5px);
@@ -570,6 +549,7 @@ textarea.form-control {
     text-align: right;
     font-size: 1.2rem;
     margin-top: 15px;
+}
 
 /*
 css pour la page admin-produit
@@ -577,14 +557,7 @@ css pour la page admin-produit
 /* --- CARD BLEUE PREMIUM --- */
 
 
- .product-card {
-     background: linear-gradient(145deg, #1e63ff, #3a89ff);
-     border-radius: 20px;
-     color: white;
-     border: 1px solid rgba(255,255,255,0.25);
-     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-     transition: transform 0.3s ease, box-shadow 0.3s ease;
- }
+
 
 .product-card:hover {
     transform: translateY(-5px) scale(1.02);
@@ -604,10 +577,7 @@ css pour la page admin-produit
     font-weight: 700;
 }
 
-.product-card p {
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
+
 
 .btn-action {
     border-radius: 12px;
@@ -628,8 +598,11 @@ css pour la page admin-produit
 
 .btn-edit {
     background-color: #ffffff;
-    color: #1e63ff;
+    background: linear-gradient(145deg, #2fecec, #3476f1);
     border: none;
+}
+.btncolor {
+    background: linear-gradient(145deg, #2fecec, #3476f1);
 }
 
 .btn-edit:hover {
@@ -643,10 +616,23 @@ css pour la page admin-produit
 
 /* Carte du produit */
 .product-card {
+    background: linear-gradient(145deg, #fdf9f9, #e7eefb, #f0f4fb, #fffcfc);
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     max-width: 800px;
     border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 30px;
 }
 
+
+.btncolor2 {
+    background: linear-gradient(145deg, #fdf9f9, #e7eefb, #f0f4fb, #fffcfc);
+}
 /* Titre */
 .product-title {
     font-size: 2rem;
@@ -701,4 +687,16 @@ css pour la page admin-produit
 .conditions-title {
     font-size: 1.4rem;
     color: #444;
+}
+
+.sectionblue {
+    background: linear-gradient(145deg, #7cb2f1, #346fdf, #114ab6, #0b3585);
+}
+
+.sectionblue2 {
+    background: linear-gradient(145deg, #07d4f8, #0cbc9c, #4474cf, #b09ced);
+}
+
+.sectiongray {
+    background: linear-gradient(145deg, rgba(221, 209, 209, 0.53), rgba(133, 126, 126, 0.53), rgba(78, 75, 75, 0.53), rgba(211, 208, 208, 0.53));
 }

@@ -28,7 +28,7 @@ if (!$user) {
 $_SESSION['role'] = $user['role_idrole'];
 ?>
 
-<section class="profile-section d-flex justify-content-center align-items-start pt-5">
+<section class="profile-section d-flex justify-content-center align-items-start pt-5 border">
     <div class="profile-card p-4 text-center">
 
         <!-- Avatar dynamique avec firstname + surname -->

@@ -471,3 +471,70 @@ textarea.form-control {
 .btn-add:hover {
     background: #276dff;
 }
+
+/* Section générale */
+.product-section {
+    background: #fafafa;
+}
+
+/* Carte du produit */
+.product-card {
+    max-width: 800px;
+    border-radius: 12px;
+}
+
+/* Titre */
+.product-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Image */
+.product-image-container {
+    display: flex;
+    justify-content: center;
+}
+
+.product-image {
+    max-width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+    transform: scale(1.05);
+}
+
+/* Description et textes */
+.product-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.product-stock {
+    font-size: 1rem;
+    color: #555;
+}
+
+.product-price {
+    color: #1a73e8;
+    font-size: 1.5rem;
+}
+
+/* Boutons */
+.product-buttons a {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px;
+}
+
+/* Carte conditions */
+.conditions-card {
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+.conditions-title {
+    font-size: 1.4rem;
+    color: #444;
+}

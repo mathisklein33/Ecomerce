@@ -78,7 +78,7 @@ if (isset($_GET['action'], $_GET['idproduit']) && $_GET['action'] === 'supprimer
 
     <div class="search-box mb-4">
         <label>Rechercher :</label>
-        <input class="form-control d-inline-block w-50" type="search" name="q">
+        <input id="search" class="form-control d-inline-block w-50" type="search" name="q">
         <a href="http://localhost/savouinos/?page=produit/creation" class="btn btn-success ms-3">
             Créer un produit
         </a>
@@ -91,8 +91,11 @@ if (isset($_GET['action'], $_GET['idproduit']) && $_GET['action'] === 'supprimer
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-start p-4">
         <?php while($row = mysqli_fetch_assoc($result)) : ?>
             <div class="col d-flex">
-                <div class="product-card w-100">
-                    <h5 class="fw-bold"><?= htmlspecialchars($row['nom']) ?></h5>
+                <div class="product-card w-100"
+                     data-name="<?= htmlspecialchars($row['nom']) ?>"
+                     data-description="<?= htmlspecialchars($row['description']) ?>">
+
+                <h5 class="fw-bold"><?= htmlspecialchars($row['nom']) ?></h5>
                     <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($row['image']) ?>" alt="">
                     <p><?= htmlspecialchars($row['description']) ?></p>
                     <p><strong>Stock :</strong> <?= htmlspecialchars($row['stock']) ?></p>
@@ -118,3 +121,54 @@ if (isset($_GET['action'], $_GET['idproduit']) && $_GET['action'] === 'supprimer
 
 </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Normalise : retire accents et met en minuscule (compatible)
+        function normalizeText(s) {
+            if (!s) return '';
+            return s
+                .normalize('NFD')                // sépare lettre + diacritiques
+                .replace(/[\u0300-\u036f]/g, '') // supprime les diacritiques (accents)
+                .toLowerCase();
+        }
+
+        const input = document.getElementById('search');
+        if (!input) {
+            console.error('Recherche : élément #search introuvable');
+            return;
+        }
+
+        const cards = Array.from(document.querySelectorAll('.product-card'));
+        if (!cards.length) {
+            console.warn('Recherche : aucune .product-card trouvée');
+            return;
+        }
+
+        input.addEventListener('input', function () {
+            const raw = this.value || '';
+            const query = normalizeText(raw.trim());
+
+            if (query === '') {
+                // champ vide : tout afficher
+                cards.forEach(card => card.style.display = '');
+                return;
+            }
+
+            const tokens = query.split(/\s+/).filter(Boolean); // mots-clés
+
+            cards.forEach(card => {
+                // lecture safe des data-attributes (fallback aux attributs HTML)
+                const nameRaw = card.dataset && card.dataset.name ? card.dataset.name : (card.getAttribute('data-name') || '');
+                const descRaw = card.dataset && card.dataset.description ? card.dataset.description : (card.getAttribute('data-description') || '');
+
+                const hay = (normalizeText(nameRaw) + ' ' + normalizeText(descRaw)).trim();
+
+                // tous les tokens doivent être présents
+                const matches = tokens.every(t => hay.includes(t));
+
+                card.style.display = matches ? '' : 'none';
+            });
+        });
+    });
+</script>

@@ -1,63 +1,50 @@
 <?php
-if (!$conn) {
-    die("Erreur de connexion MySQL : " . mysqli_connect_error());
-}
 
-$sql = "SELECT * FROM produit";
-$result = mysqli_query($conn, $sql);
-
-if (!$result) {
-    die('Erreur SQL : ' . mysqli_error($conn));
-}
-
-if (isset($_SESSION['panier'])) {
-    $panier = $_SESSION['panier'] ?? [];
-}
+$panier = $_SESSION['panier'] ?? [];
 ?>
 
 <section class="border">
 
-<input id="search" type="search" placeholder=" 🔍  Recherche un produit...">
+    <div class="filters" style="display:flex; gap:10px; margin-bottom:20px;">
+        <input id="search" type="search" placeholder=" 🔍  Recherche un produit...">
 
-
-
-
-<div class="container mt-4">
-    <div class="row">
-
-        <?php while($row = mysqli_fetch_assoc($result)) : ?>
-            <div class="col-md-4 col-lg-3">
-                <div class="product-card"
-                     data-name="<?= htmlspecialchars($row['nom'], ENT_QUOTES) ?>"
-                     data-description="<?= htmlspecialchars($row['description'], ENT_QUOTES) ?>">
-
-                    <img src="<?= '/savouinos/public/asset/img/' . htmlspecialchars($row['image']) ?>"
-                         alt="<?= htmlspecialchars($row['nom']) ?>">
-
-                    <h5><?= htmlspecialchars($row['nom']) ?></h5>
-
-                    <p class="price-tag"><?= htmlspecialchars($row['prix']) ?> €</p>
-
-                    <div class="product-buttons">
-                        <a class="btn-details .btncolor2 "
-                           href="https://localhost/savouinos/?page=produits&idproduit=<?= $row['idproduit'] ?>">
-                            Voir détails
-                        </a>
-
-                        <a class="btn-add btncolor"
-                           href="http://localhost/savouinos/public/includes/panier_add.php?id=<?= $row['idproduit'] ?>">
-                            Ajouter au panier 🛒
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        <?php endwhile; ?>
-
+        <select id="price">
+            <option value="">Tous les prix</option>
+            <option value="0-5">0 → 5 €</option>
+            <option value="5-10">5 → 10 €</option>
+            <option value="10-20">10 → 20 €</option>
+            <option value="20-9999">20 € et +</option>
+        </select>
     </div>
-</div>
+
+    <div class="container mt-4">
+        <div id="products" class="row">
+            <!-- Résultats AJAX ici -->
+        </div>
+    </div>
+
 </section>
-<script src="../public/asset/js/scrypt.js"></script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const search = document.getElementById("search");
+        const price = document.getElementById("price");
+        const productsContainer = document.getElementById("products");
 
+        function loadProducts() {
+            const query = search.value;
+            const priceRange = price.value;
 
+            fetch("public/includes/search_products.php?search=" + query + "&price=" + priceRange)
+                .then(res => res.text())
+                .then(data => {
+                    productsContainer.innerHTML = data;
+                });
+        }
+
+        search.addEventListener("input", loadProducts);
+        price.addEventListener("change", loadProducts);
+
+        loadProducts(); // Charger au début
+    });
+</script>

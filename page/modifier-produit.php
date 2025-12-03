@@ -42,23 +42,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modifier produit</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../public/asset/CSS/style.css">
 
+</head>
+<body>
 
-<h2>Modifier le produit : <?= htmlspecialchars($produit['nom']) ?></h2>
+</body>
+</html>
 
-<form method="POST">
+<div class="container form-container">
+    <form method="POST" class="form mx-6" >
+        <h2 class="mt-3">Modifier le produit : <?= htmlspecialchars($produit['nom']) ?></h2>
 
-    <label>Nom :</label><br>
-    <input type="text" name="nom" value="<?= htmlspecialchars($produit['nom']) ?>"><br><br>
+        <div class="mb-3 p-4">
+            <label>Nom :</label>
+            <input type="text" name="nom" class="form-control " value="<?= htmlspecialchars($produit['nom']) ?>">
+        </div>
 
-    <label>Prix :</label><br>
-    <input type="number" name="prix" value="<?= $produit['prix'] ?>"><br><br>
+        <div class="mb-3 p-4">
+            <label>Prix :</label>
+            <input type="number" name="prix" class="form-control" value="<?= $produit['prix'] ?>">
+        </div>
 
-    <label>Stock :</label><br>
-    <input type="number" name="stock" value="<?= $produit['stock'] ?>"><br><br>
+        <div class="mb-3 p-4">
+            <label>Stock :</label>
+            <input type="number" name="stock" class="form-control" value="<?= $produit['stock'] ?>">
+        </div>
 
-    <label>Description :</label><br>
-    <textarea name="description"><?= htmlspecialchars($produit['description']) ?></textarea><br><br>
+        <div class="mb-3 p-4">
+            <label>Description :</label>
+            <textarea name="description" class="form-control"><?= htmlspecialchars($produit['description']) ?></textarea>
+        </div>
 
-    <button type="submit">Enregistrer</button>
-</form>
+        <button type="submit" class="btn btn-submit">Enregistrer</button>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+

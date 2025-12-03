@@ -1,4 +1,4 @@
-﻿
+﻿<section class="border">
 <div class="site-container">
 
     <!-- HERO -->
@@ -177,4 +177,5 @@
         <h2 class="fw-bold mb-4">Rejoignez des milliers de clients satisfaits qui font confiance à Savuinos</h2>
         <a href="#" class="btn btn-warning btn-lg px-4 fw-bold">Commencer Mes Achats →</a>
     </div>
+</section>
 </section>

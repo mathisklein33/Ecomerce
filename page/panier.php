@@ -94,6 +94,7 @@ if ($action && $id_produit !== null) {
 
 ?>
 
+<section class="border">
 <div class="container py-5">
     <h2 class="mb-4 fw-bold">Votre panier</h2>
     <div class="row">
@@ -163,3 +164,4 @@ if ($action && $id_produit !== null) {
 
     </div>
 </div>
+</section>

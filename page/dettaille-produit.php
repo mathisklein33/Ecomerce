@@ -1,10 +1,7 @@
 <?php
-require '../public/config/config.php';
-
-$row = '';
 
 if (!isset($_GET['idproduit']) || empty($_GET['idproduit'])) {
-    echo "ID produit manquant";
+    die("ID produit manquant");
 }
 
 $id = (int) $_GET['idproduit'];
@@ -18,36 +15,69 @@ if (mysqli_num_rows($result) == 0) {
 }
 
 $produit = mysqli_fetch_assoc($result);
-?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Détaille du produit</title>
-    <link rel="stylesheet" href="../public/asset/CSS/detaille.css">
-</head>
 
-<section>
-    <h2><?= htmlspecialchars($produit['nom']) ?></h2>
-    <div>
-        <img src="../public/asset/img/<?= htmlspecialchars($row['image']) ?>" alt="">
-    </div>
-    <div>
-        <p><?= htmlspecialchars($row['description']) ?></p>
-        <p><strong>Stock :</strong> <?= htmlspecialchars($row['stock']) ?></p>
-        <h3><strong>prix :</strong> <?= htmlspecialchars($row['prix']) ?> <strong>€</strong></h3>
-    </div>
-    <div>
-        <a href="https://localhost/savouinos/?page=catalogue">retoure catalogue</a>
-        <a href="#">acheter</a>
-    </div>
-        
-    <div>
-       <p>
-           typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-       </p>
+?>
+
+<section class="product-section border">
+
+    <div class="container py-5">
+
+        <!-- Carte du produit -->
+        <div class="card product-card shadow-lg mx-auto">
+            <div class="card-body">
+
+                <h2 class="product-title text-center mb-4">
+                    <?= htmlspecialchars($produit['nom']) ?>
+                </h2>
+
+                <div class="product-image-container text-center mb-4">
+                    <img src="../public/asset/img/<?= htmlspecialchars($produit['image']) ?>"
+                         alt=""
+                         class="product-image img-fluid rounded">
+                </div>
+
+                <p class="product-description"><?= htmlspecialchars($produit['description']) ?></p>
+
+                <p class="product-stock">
+                    <strong>Stock :</strong> <?= htmlspecialchars($produit['stock']) ?>
+                </p>
+
+                <h4 class="product-price">
+                    <strong>Prix :</strong> <?= htmlspecialchars($produit['prix']) ?> €
+                </h4>
+
+                <div class="product-buttons mt-4 d-flex gap-3">
+                    <a href="https://localhost/savouinos/?page=catalogue" class="btn btn-secondary w-50">
+                        Retour au catalogue
+                    </a>
+                    <a href="#" class="btn btn-primary w-50">Acheter</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Conditions de vente -->
+        <div class="card conditions-card mt-4 shadow-lg mx-auto">
+            <div class="card-body">
+                <h5 class="conditions-title mb-3">Conditions de vente</h5>
+
+                <p>
+                    Les produits présentés sur ce site sont proposés dans la limite des stocks disponibles.
+                    Les prix indiqués sont exprimés en euros et toutes taxes comprises.
+                    La commande n’est validée qu’après confirmation du paiement et un email de confirmation sera envoyé au client.
+                </p>
+
+                <p>
+                    Les livraisons sont effectuées à l’adresse fournie lors de la commande. Les délais peuvent varier selon le transporteur.
+                    Le client dispose de 14 jours pour exercer son droit de rétractation, sous réserve que l’article soit retourné dans son état d’origine.
+                </p>
+
+                <p>
+                    En cas de produit défectueux ou d’erreur, un échange ou un remboursement peut être demandé.
+                    L’utilisation de ce site implique l’acceptation pleine et entière des présentes conditions de vente.
+                </p>
+            </div>
+        </div>
+
     </div>
 </section>
-
-

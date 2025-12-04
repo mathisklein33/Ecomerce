@@ -1,5 +1,5 @@
 
-<section class="bg-light">
+<section class="bg-light border">
 
 <div class="container py-5">
 

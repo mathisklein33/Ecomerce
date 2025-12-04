@@ -727,13 +727,12 @@ form label {
 }
 
 /* Inputs et textarea */
-form input,
-form textarea {
+.form-control{
     width: 100%;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     background: rgba(255, 255, 255, 0.1);
-    color: white;
+    color: #050000;
     margin-top: 6px;
     transition: border 0.2s, box-shadow 0.2s;
     resize: vertical;
@@ -777,3 +776,45 @@ form textarea:focus {
 .sectiongray {
     background: linear-gradient(145deg, rgba(221, 209, 209, 0.53), rgba(133, 126, 126, 0.53), rgba(78, 75, 75, 0.53), rgba(211, 208, 208, 0.53));
 }
+
+/*
+Style page d'information
+ */
+
+
+/* Titre principal */
+.title-1{
+    text-align: center;
+    font-weight: 700;
+    color: #0d6efd; /* Bleu Bootstrap */
+}
+
+/* Sections des savons */
+.p-3 .m-3{
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 6px solid #0d6efd; /* Accent Bootstrap */
+}
+
+/* Effet hover */
+section:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.10);
+}
+
+/* Titres des sections */
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0d6efd;
+}
+
+/* Paragraphe */
+.para {
+    font-size: 1rem;
+    color: #333;
+}
+
+

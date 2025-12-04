@@ -83,7 +83,9 @@ if (isset($_GET['action'], $_GET['idproduit']) && $_GET['action'] === 'supprimer
             Créer un produit
         </a>
     </div>
-
+    <div>
+        <a href="http://localhost/savouinos/?page=admin/command">Listes des commandes</a>
+    </div>
     <div class="admin-header">
         <h1 class="text-center">Liste des produits</h1>
     </div>

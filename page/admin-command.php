@@ -1,102 +1,102 @@
 ﻿<?php
+// Traiter la mise à jour AVANT de récupérer les commandes
+if(!empty($_POST['statue']) && !empty($_POST['idcommande'])) {
+    $etat = $_POST['statue'];
+    $idCommande = $_POST['idcommande'];
 
+    $sqlStatue = "UPDATE `commande` SET `statue` = ? WHERE `idcommande` = ?";
+    $stmtStatue = $conn->prepare($sqlStatue);
+    $stmtStatue->bind_param("si", $etat, $idCommande);
+    $stmtStatue->execute();
+    $stmtStatue->close();
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
-    header("Location: index.php");
-    exit;
-}
-// Vérifier connexion
-if (!$conn) {
-    die("Erreur de connexion MySQL : " . mysqli_connect_error());
-}
-// récupére base de donnée
-$sql = "
-SELECT
-    commande.idcommande,
-    commande.quantite,
-    codepromo.codepromocol AS codepromo,
-    commande.user_iduser,
-    user.firstname,
-    user.surname
-FROM commande
-INNER JOIN user ON user.iduser = commande.user_iduser
-LEFT JOIN codepromo 
-    ON commande.codepromo_idcodepromo = codepromo.idcodepromo
-ORDER BY commande.idcommande DESC
-";
-
-$result = mysqli_query($conn, $sql); // récupére base de donnée
-
-if (!$result) {
-    die('Erreur SQL : ' . mysqli_error($conn));
+    // Redirection pour éviter la resoumission du formulaire
+    header("Location: http://localhost/savouinos/?page=admin/command");
+    exit();
 }
 
-
-if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['idproduit'])) {
-    $id = (int) $_GET['idproduit'];
-
-    // Préparation + exécution (sécurisé)
-    $stmt = mysqli_prepare($conn, "DELETE FROM produit WHERE idproduit = ?");
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "i", $id);
-        mysqli_stmt_execute($stmt);
-
-        // Vérifier réussite
-        if (mysqli_stmt_affected_rows($stmt) > 0) {
-            // succès
-            mysqli_stmt_close($stmt);
-            // Rediriger pour éviter double suppression au refresh
-            header("Location: " . strtok($_SERVER["REQUEST_URI"], '?')); // retour sur la même page sans query
-            exit;
-        } else {
-            // aucun enregistrement supprimé — id inexistant ou erreur
-            mysqli_stmt_close($stmt);
-            // Pour debug (retirer en production)
-            error_log("Suppression échouée pour idproduit={$id}");
-        }
-    } else {
-        error_log("Erreur prepare: " . mysqli_error($conn));
-    }
-}
+// Récupérer les commandes
+$sql = "SELECT commande.*, user.surname, user.firstname, user.email, user.adresse
+    FROM commande   
+    LEFT JOIN user ON commande.user_iduser = user.iduser
+    WHERE 1
+    ORDER BY commande.date DESC";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
-    <section>
-        <div>
-            <label for="site-search">Search the site:</label>
-            <input type="search" name="q" />
-            <button>Search</button>
-        </div>
-    </section>
-
-    <section>
-        <div>
-            <h1>Liste des commande</h1>
-
-            <div>
-                <?php
-                while($row = mysqli_fetch_assoc($result)) : // boucle crée carde automatique
-                    ?>
-
+<div>
+    <div>
+        <?php if($result->num_rows === 0): ?>
+            <div><p>Aucune commande</p></div>
+        <?php else: ?>
+            <?php while ($com = $result->fetch_assoc()): ?>
+                <div class="mb-3">
                     <div>
-                        <h5><strong>n° commande :</strong><?= htmlspecialchars($row['idcommande']) ?></h5>
+                        <div>
+                            <h4>👤 Informations client</h4>
+                            <p><strong>Nom :</strong> <?= htmlspecialchars($com['surname']) ?> <?= htmlspecialchars($com['firstname']) ?></p>
+                            <p><strong>Email :</strong> <?= htmlspecialchars($com['email']) ?></p>
+                            <p><strong>Adresse :</strong> <?= htmlspecialchars($com['adresse']) ?></p>
+                        </div>
 
-                        <p><strong>Code promo :</strong> <?= htmlspecialchars($row['codepromo'] ?? "Aucun") ?></p>
+                        <p>Numéro de commande : <?= htmlspecialchars($com['idcommande']) ?></p>
+                        <p>Date : <?= htmlspecialchars($com['date']) ?></p>
+                        <p>Quantité : <?= htmlspecialchars($com['quantite']) ?> produits</p>
 
-                        <p>
-                            <?= htmlspecialchars($row['quantite']) ?>
-                        </p>
+                        <?php
+                        $sqlProduits = "SELECT commande_has_produit.*, produit.nom, produit.prix 
+                                       FROM commande_has_produit
+                                       LEFT JOIN produit ON commande_has_produit.produit_idproduit = produit.idproduit
+                                       WHERE commande_has_produit.commande_idcommande = ?";
+                        $stmtProduits = $conn->prepare($sqlProduits);
+                        $stmtProduits->bind_param("i", $com['idcommande']);
+                        $stmtProduits->execute();
+                        $resultProduits = $stmtProduits->get_result();
+                        ?>
 
-                        <p>
+                        <?php if($resultProduits->num_rows > 0):
+                            $total = 0; ?>
+                            <div>
+                                <strong>Produits commandés :</strong>
+                                <ul>
+                                    <?php while($produit = $resultProduits->fetch_assoc()):
+                                        $total += $produit['quantite'] * $produit['prix']; ?>
+                                        <li>
+                                            <?= htmlspecialchars($produit['nom']) ?>
+                                            - Quantité : <?= htmlspecialchars($produit['quantite']) ?>
+                                            - Prix unité : <?= $produit['prix']?>€
+                                        </li>
+                                    <?php endwhile; ?>
+                                </ul>
+                                <div>
+                                    <p>Total : <?= $total ?>€</p>
+                                </div>
+                            </div>
+                        <?php endif;
+                        $stmtProduits->close(); ?>
 
-                            <strong>Client :</strong>
-                            <?= htmlspecialchars($row['firstname']) ?>
-                            <?= htmlspecialchars($row['surname']) ?>
-                        </p>
+                        <p><strong>État :</strong> <?= htmlspecialchars($com['statue'])?></p>
+
+                        <form method="post">
+                            <select name="statue" required>
+                                <option value="">-- Modifier l'état --</option>
+                                <option value="en attente" <?= $com['statue'] == 'en attente' ? 'selected' : '' ?>>En attente</option>
+                                <option value="en cours" <?= $com['statue'] == 'en cours' ? 'selected' : '' ?>>En cours</option>
+                                <option value="expédiée" <?= $com['statue'] == 'expédiée' ? 'selected' : '' ?>>Expédiée</option>
+                                <option value="livré" <?= $com['statue'] == 'livré' ? 'selected' : '' ?>>Livré</option>
+                                <option value="annulée" <?= $com['statue'] == 'annulée' ? 'selected' : '' ?>>Annulée</option>
+                            </select>
+                            <input type="hidden" name="idcommande" value="<?= htmlspecialchars($com['idcommande']) ?>">
+                            <button type="submit">Mettre à jour</button>
+                        </form>
                     </div>
+                </div>
+                <hr>
+            <?php endwhile; ?>
+        <?php endif; ?>
 
-                <?php endwhile; //boucle fin?>
-            </div>
-
-        </div>
-    </section>
-
+        <?php $stmt->close(); ?>
+    </div>
+</div>

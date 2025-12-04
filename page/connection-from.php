@@ -58,16 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" class="login-form">
 
             <label class="label">Email :</label>
-            <input type="email" name="email" class="input-field" required>
+            <input type="email" name="email" class="input-field" style="color:black; background:white;" required>
 
             <label class="label">Mot de passe :</label>
-            <input type="password" name="password" class="input-field" required>
+            <input type="password" name="password" class="input-field" style="color:black; background:white;" required>
 
-            <button type="submit" class="btn-login">Se connecter</button>
+            <button type="submit" class="btn-login"  >Se connecter</button>
             <div class="mt-4">
                 <p class="signup-text">
                     Pas encore de compte ?
-                    <a class="p-2 nonetext" href="http://localhost/savouinos/?page=inscription" >Inscription</a>
+                    <a class="p-2 nonetext" href="http://localhost/savouinos/?page=inscription"  >Inscription</a>
                 </p>
             </div>
         </form>

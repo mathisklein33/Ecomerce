@@ -3,6 +3,7 @@ header{
     border-radius: 30px;
 }
 
+
 .nav-item{
     font-size:40px;
 }
@@ -72,7 +73,7 @@ footer h2 {
     align-items: center;
     justify-content: center;
     font-size: 40px;
-    color: white;
+    color: #fffafa;
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
@@ -90,7 +91,7 @@ footer h2 {
 }
 
 .order-history-box {
-    background: white;
+    background: #fff9f9;
     border: 2px solid #e0e0e0;
     border-radius: 15px;
     min-height: 150px;
@@ -101,7 +102,7 @@ footer h2 {
 
 .logout-btn {
     background: #d8323c;
-    color: white;
+    color: #fffcfc;
     border: none;
     padding: 8px 15px;
     border-radius: 8px;
@@ -114,7 +115,7 @@ body {
 
 
 .cart-item {
-    background: white;
+    background: #fffbfb;
     border-radius: 15px;
 }
 
@@ -151,7 +152,7 @@ body {
 
 
 .order-box {
-    background: white;
+    background: #fffafa;
     border-radius: 18px;
 }
 
@@ -159,7 +160,7 @@ body {
     --blue-main: #1a73e8;   /* Bleu principal */
     --blue-hover: #155fc0;  /* Bleu foncé au hover */
     --blue-light: #e7f0fd;  /* Bleu très clair */
-    --white: #ffffff;
+    --white: #fdfbfb;
     --text-dark: #1a1a1a;
     --border-color: #cdd9ee;
 }
@@ -249,7 +250,7 @@ body {
 
 
 .register-container {
-    background-color: white;
+    background-color: #fff9f9;
     padding: 35px;
     width: 380px;
     border-radius: 12px;
@@ -294,7 +295,7 @@ body {
     margin-top: 20px;
     padding: 12px;
     background-color: #1e7fe8;
-    color: white;
+    color: #fffcfc;
     border: none;
     font-size: 16px;
     border-radius: 6px;
@@ -330,7 +331,7 @@ body {
 
     .btn-submit {
         background: #000;
-        color: white;
+        color: #fdfafa;
         border-radius: 12px;
         padding: 12px;
         transition: 0.2s;
@@ -366,7 +367,7 @@ textarea.form-control {
 
 .btn-submit {
     background: #000;
-    color: white;
+    color: #fff9f9;
     border-radius: 12px;
     padding: 12px;
     transition: 0.2s;
@@ -445,7 +446,7 @@ CSS pour la page catalogue
 
 .btn-add {
     background: #4c8bff;
-    color: white;
+    color: #fffbfb;
 }
 
 .btn-add:hover {
@@ -467,7 +468,7 @@ CSS pour la page catalogue
 }
 
 .checkout-card {
-    background: #ffffff;
+    background: #fffbfb;
     padding: 25px;
     margin-bottom: 25px;
     border-radius: 18px;
@@ -519,7 +520,7 @@ CSS pour la page catalogue
 .btn-submit {
     width: 100%;
     background: #1b1b1b;
-    color: white;
+    color: #fffbfb;
     padding: 12px;
     border: none;
     border-radius: 14px;
@@ -590,7 +591,7 @@ css pour la page admin-produit
 
 .btn-delete {
     background-color: #ff4d4d;
-    color: white;
+    color: #fff5f5;
     border: none;
 }
 
@@ -600,7 +601,7 @@ css pour la page admin-produit
 }
 
 .btn-edit {
-    background-color: #ffffff;
+    background-color: #fdf7f7;
     background: linear-gradient(145deg, #2fecec, #3476f1);
     border: none;
 }
@@ -791,7 +792,7 @@ Style page d'information
 
 /* Sections des savons */
 .p-3 .m-3{
-    background: white;
+    background: #fffafa;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -817,5 +818,7 @@ section:hover {
     color: #333;
 }
 
-
-*
+.imputcolor {
+    color:black !important;
+    background:white !important;
+}

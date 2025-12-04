@@ -151,25 +151,25 @@ $total_sans_reduction = calculerTotal($panier, 0);
                     <form action="#" method="POST" id="checkout-form">
                         <div class="form-group">
                             <label for="firstname">Prénom</label>
-                            <input type="text" id="firstname" name="firstname" value="<?= htmlspecialchars($client_data['firstname']); ?>" required>
+                            <input type="text" id="firstname" name="firstname" style="color:black; background:white;" value="<?= htmlspecialchars($client_data['firstname']); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="surname">Nom</label>
-                            <input type="text" id="surname" name="surname" value="<?= htmlspecialchars($client_data['surname']); ?>" required>
+                            <input type="text" id="surname" name="surname" style="color:black; background:white;" value="<?= htmlspecialchars($client_data['surname']); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" value="<?= htmlspecialchars($client_data['email']); ?>" required>
+                            <input type="email" id="email" name="email" style="color:black; background:white;" value="<?= htmlspecialchars($client_data['email']); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="adresse">Adresse de livraison</label>
-                            <textarea id="adresse" name="adresse" rows="3" required><?= htmlspecialchars($client_data['adresse']); ?></textarea>
+                            <textarea id="adresse" name="adresse" rows="3" style="color:black; background:white;" required><?= htmlspecialchars($client_data['adresse']); ?></textarea>
                         </div>
                         <div class="form-group">
                             <label>Code Promo (optionnel)</label>
                             <div class="promo-group">
-                                <input type="text" id="codepromo" name="codepromo" placeholder="EX: SAVOIR15" value="<?= htmlspecialchars($_POST['codepromo'] ?? ''); ?>">
-                                <input type="hidden" name="action" value="" id="form_action">
+                                <input type="text" id="codepromo" name="codepromo" style="color:black; background:white;" placeholder="EX: SAVOIR15" value="<?= htmlspecialchars($_POST['codepromo'] ?? ''); ?>">
+                                <input type="hidden" name="action" value="" style="color:black; background:white;" id="form_action">
                                 <button type="button" class="btn-promo" onclick="appliquerPromo(event)">Appliquer</button>
                             </div>
                         </div>

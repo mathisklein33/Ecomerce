@@ -72,19 +72,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" class="register-form">
 
             <label class="register-label">Prénom :</label>
-            <input type="text" name="firstname" class="register-input" required>
+            <input type="text" name="firstname" class="register-input imputcolor" style="color:black; background:white;"  required>
 
             <label class="register-label">Nom :</label>
-            <input type="text" name="surname" class="register-input" required>
+            <input type="text" name="surname" class="register-input imputcolor" style="color:black; background:white;"  required>
 
             <label class="register-label">Adresse :</label>
-            <input type="text" name="adresse" class="register-input" required>
+            <input type="text" name="adresse" class="register-input imputcolor" style="color:black; background:white;"  required>
 
             <label class="register-label">Email :</label>
-            <input type="email" name="email" class="register-input" required>
+            <input type="email" name="email" class="register-input imputcolor" style="color:black; background:white;" required>
 
             <label class="register-label">Mot de passe :</label>
-            <input type="password" name="password" class="register-input" required>
+            <input type="password" name="password" class="register-input " style="color:black; background:white;" required>
 
             <button type="submit" class="register-button">S'inscrire</button>
         </form>

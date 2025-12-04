@@ -19,7 +19,7 @@ $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
-
+$stmt->close();
 if (!$user) {
     header("Location: http://localhost/savouinos/?page=deconnexion");
     exit;
@@ -50,14 +50,20 @@ $_SESSION['role'] = $user['role_idrole'];
 
 
 
+<?php
+
+$sqlCommande = "SELECT *
+        FROM commande
+        WHERE user_iduser = ?";
+$stmtCommande = $conn->prepare($sqlCommande);
+$stmtCommande->bind_param("i", $user['iduser']);
+$stmtCommande->execute();
+$resultCommande = $stmtCommande->get_result();
+$commande = $resultCommande->fetch_assoc();
+?>
 
 <div class="order-history-title p-2">
-    Historique de commande
-</div>
-
-<div class="order-history-box mt-3 p-4">
-    Aucune commande
-</div>
+    <a href="http://localhost/savouinos/?page=HistoriqueCommande&iduser=<?= urlencode($user['iduser']) ?>">Historique de commande</a>
 
 <a href="http://localhost/savouinos/public/includes/deconnexion.php">
     <button type="button" class="logout-btn mt-4">Déconnexion</button>

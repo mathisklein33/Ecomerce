@@ -20,14 +20,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email     = trim($_POST['email']);
     $password  = $_POST['password'];
 
-    // Vérifier si l'email existe déjà
-    $stmt = $conn->prepare("SELECT iduser FROM user WHERE email = ?");
+    // Vérifier si l'email existe déjà (y compris le rôle pour reconnaître un invité)
+    $stmt = $conn->prepare("SELECT iduser, role_idrole FROM user WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $exists = $stmt->get_result();
 
     if ($exists->num_rows > 0) {
-        $errorMessage = "Cet email est déjà utilisé.";
+        $row = $exists->fetch_assoc();
+        // Si c'est un compte 'invité' (role_idrole = 3), on permet de finaliser le compte
+        if ((int)$row['role_idrole'] === 3) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $upd = $conn->prepare("UPDATE user SET password = ?, role_idrole = 2, firstname = ?, surname = ?, adresse = ? WHERE iduser = ?");
+            $upd->bind_param("ssssi", $hashedPassword, $firstname, $surname, $adresse, $row['iduser']);
+            if ($upd->execute()) {
+                // Connexion auto après activation
+                $_SESSION['user_id'] = $row['iduser'];
+                $_SESSION['email']   = $email;
+                $_SESSION['role']    = 2;
+
+                header("Location: index.php");
+                exit;
+            } else {
+                $errorMessage = "Erreur lors de l’activation du compte invité.";
+            }
+        } else {
+            $errorMessage = "Cet email est déjà utilisé.";
+        }
     } else {
 
         // HASH DU MOT DE PASSE
@@ -54,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
 ?>
 
 <!-- AFFICHAGE DU FORMULAIRE -->

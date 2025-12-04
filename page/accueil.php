@@ -11,8 +11,8 @@
                 fabriqués avec amour et les meilleurs ingrédients biologiques.
             </p>
             <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
-                <a href="#" class="btn btn-dark btn-lg px-4">Acheter Maintenant →</a>
-                <a href="#" class="btn btn-outline-light btn-lg px-4">En Savoir Plus</a>
+                <a href="?page=catalogue" class="btn btn-dark btn-lg px-4">Acheter Maintenant →</a>
+                <a href="http://localhost/savouinos/?page=information" class="btn btn-outline-light btn-lg px-4">En Savoir Plus</a>
             </div>
         </div>
     </section>
@@ -155,7 +155,7 @@
             </div>
 
             <div class="text-center mt-5">
-                <a href="#" class="btn btn-warning fw-bold px-4">Voir Tous les Produits →</a>
+                <a href="?page=catalogue" class="btn btn-warning fw-bold px-4">Voir Tous les Produits →</a>
             </div>
         </div>
     </section>
@@ -175,7 +175,7 @@
     <div class="container text-white py-5">
         <p class="fs-5 mb-1 text-warning">Prêt(e) à Transformer Vos Soins de Peau ?</p>
         <h2 class="fw-bold mb-4">Rejoignez des milliers de clients satisfaits qui font confiance à Savuinos</h2>
-        <a href="#" class="btn btn-warning btn-lg px-4 fw-bold">Commencer Mes Achats →</a>
+        <a href="?page=catalogue"" class="btn btn-warning btn-lg px-4 fw-bold">Commencer Mes Achats →</a>
     </div>
 </section>
 </section>

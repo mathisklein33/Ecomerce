@@ -64,13 +64,6 @@ $commande = $resultCommande->fetch_assoc();
 
 <div class="order-history-title p-2">
     <a href="http://localhost/savouinos/?page=HistoriqueCommande&iduser=<?= urlencode($user['iduser']) ?>">Historique de commande</a>
-</div>
-
-
-
-
-
-</div>
 
 <a href="http://localhost/savouinos/public/includes/deconnexion.php">
     <button type="button" class="logout-btn mt-4">Déconnexion</button>

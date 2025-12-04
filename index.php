@@ -22,7 +22,7 @@ $routes = [
         'delete' => __DIR__ . '/public/includes/delete.php',
         'user/modifier' => __DIR__ . "/page/modifier-user.php",
         'deconnexion' => __DIR__ . "/public/includes/deconnexion.php",
-        'confirmation' => __DIR__ . '/page/validation-commande.php'
+        'confirmation' => __DIR__ . '/page/validation-commande.php',
         'HistoriqueCommande' => __DIR__ . "/page/historiqueCommande.php"
 ];
 
